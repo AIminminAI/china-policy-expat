@@ -1,6 +1,7 @@
 // GET /api/policies - 获取政策列表，支持 category 和 search 查询参数
 
-import type { VercelRequest, VercelResponse } from "../src/lib/types";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type { Policy } from "../src/lib/types";
 import { policies } from "../src/data/policies";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

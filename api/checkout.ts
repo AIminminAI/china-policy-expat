@@ -1,6 +1,7 @@
 // POST /api/checkout - 创建 Creem 结账会话
 
-import type { VercelRequest, VercelResponse, CheckoutRequest } from "../src/lib/types";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type { CheckoutRequest } from "../src/lib/types";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {

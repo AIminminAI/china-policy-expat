@@ -1,13 +1,7 @@
 // POST /api/calculate - 根据用户信息匹配政策并估算补贴金额
 
-import type {
-  VercelRequest,
-  VercelResponse,
-  CalculateRequest,
-  CalculateResponse,
-  MatchedPolicy,
-  Policy,
-} from "../src/lib/types";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type { Policy, CalculateRequest, CalculateResponse, MatchedPolicy } from "../src/lib/types";
 import { policies } from "../src/data/policies";
 
 // 简单的规则匹配逻辑

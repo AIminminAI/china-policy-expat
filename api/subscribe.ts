@@ -1,6 +1,6 @@
 // POST /api/subscribe - 邮件订阅接口
 
-import type { VercelRequest, VercelResponse } from "../src/lib/types";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 // KV 存储操作
 async function setKV(key: string, value: Record<string, unknown>): Promise<void> {

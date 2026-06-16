@@ -1,7 +1,7 @@
 // 中国政策数据 - 面向在华外籍人士
 // 所有内容均为英文，供外籍人士参考
 
-import type { Policy } from "@/lib/types";
+import type { Policy } from "../lib/types";
 
 export const policies: Policy[] = [
   {

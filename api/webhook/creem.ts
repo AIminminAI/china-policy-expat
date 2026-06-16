@@ -1,6 +1,7 @@
 // POST /api/webhook/creem - 处理 Creem webhook 事件
 
-import type { VercelRequest, VercelResponse, CreemWebhookEvent } from "../../src/lib/types";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
+import type { CreemWebhookEvent } from "../../src/lib/types";
 import crypto from "crypto";
 
 // 验证 Creem webhook 签名
