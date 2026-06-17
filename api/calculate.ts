@@ -72,7 +72,7 @@ const policies: Policy[] = [
     source: "State Taxation Administration",
     sourceUrl: "https://www.chinatax.gov.cn",
     city: "National",
-    updatedAt: "2026-01-01-15",
+    updatedAt: "2026-01-15",
   },
   {
     id: "social-insurance-foreign-employees",
@@ -93,7 +93,7 @@ const policies: Policy[] = [
     source: "Ministry of Human Resources and Social Security",
     sourceUrl: "https://www.mohrss.gov.cn",
     city: "National",
-    updatedAt: "2026-01-02-01",
+    updatedAt: "2026-02-01",
   },
   {
     id: "housing-provident-fund-expats",
@@ -114,7 +114,7 @@ const policies: Policy[] = [
     source: "Housing Provident Fund Management Centers",
     sourceUrl: "https://www.gjj.beijing.gov.cn",
     city: "Shanghai, Shenzhen, and select cities",
-    updatedAt: "2026-01-01-20",
+    updatedAt: "2026-01-20",
   },
   {
     id: "childcare-subsidy",
@@ -135,7 +135,7 @@ const policies: Policy[] = [
     source: "Local Municipal Governments",
     sourceUrl: "https://www.sz.gov.cn",
     city: "Shenzhen, Hangzhou, Wenzhou, and others",
-    updatedAt: "2026-01-03-01",
+    updatedAt: "2026-03-01",
   },
   {
     id: "home-appliance-trade-in-subsidy",
@@ -156,7 +156,7 @@ const policies: Policy[] = [
     source: "Ministry of Commerce",
     sourceUrl: "https://www.mofcom.gov.cn",
     city: "National",
-    updatedAt: "2026-01-02-15",
+    updatedAt: "2026-02-15",
   },
   {
     id: "new-energy-vehicle-subsidy",
@@ -177,7 +177,7 @@ const policies: Policy[] = [
     source: "Ministry of Industry and Information Technology",
     sourceUrl: "https://www.miit.gov.cn",
     city: "National with city-specific additions",
-    updatedAt: "2026-01-01-10",
+    updatedAt: "2026-01-10",
   },
   {
     id: "talent-housing-subsidy",
@@ -198,7 +198,7 @@ const policies: Policy[] = [
     source: "Local Talent Service Centers",
     sourceUrl: "https://www.shanghai.gov.cn",
     city: "Shanghai, Shenzhen, Hangzhou, Beijing, and others",
-    updatedAt: "2026-01-03-10",
+    updatedAt: "2026-03-10",
   },
   {
     id: "medical-insurance-foreign-residents",
@@ -219,7 +219,7 @@ const policies: Policy[] = [
     source: "National Healthcare Security Administration",
     sourceUrl: "https://www.nhsa.gov.cn",
     city: "National",
-    updatedAt: "2026-01-02-20",
+    updatedAt: "2026-02-20",
   },
   {
     id: "education-subsidy-children-expats",
@@ -240,7 +240,7 @@ const policies: Policy[] = [
     source: "Local Education Bureaus",
     sourceUrl: "https://edu.sh.gov.cn",
     city: "Shanghai, Shenzhen, Hangzhou, Suzhou, Chengdu",
-    updatedAt: "2026-01-01-25",
+    updatedAt: "2026-01-25",
   },
   {
     id: "startup-subsidy-foreign-entrepreneurs",
@@ -261,7 +261,7 @@ const policies: Policy[] = [
     source: "Local Innovation and Technology Commissions",
     sourceUrl: "https://www.zhangjiang.net",
     city: "Shanghai, Shenzhen, Beijing, Hangzhou, Chengdu",
-    updatedAt: "2026-01-03-05",
+    updatedAt: "2026-03-05",
   },
   {
     id: "foreign-talent-visa-r-visa",
@@ -282,7 +282,7 @@ const policies: Policy[] = [
     source: "State Administration of Foreign Experts Affairs",
     sourceUrl: "https://www.safea.gov.cn",
     city: "National",
-    updatedAt: "2026-01-02-10",
+    updatedAt: "2026-02-10",
   },
   {
     id: "high-speed-rail-foreign-pass",
@@ -303,7 +303,7 @@ const policies: Policy[] = [
     source: "China Railway",
     sourceUrl: "https://www.12306.cn",
     city: "National",
-    updatedAt: "2026-01-01-30",
+    updatedAt: "2026-01-30",
   },
   {
     id: "elderly-care-deduction",
@@ -324,7 +324,7 @@ const policies: Policy[] = [
     source: "State Taxation Administration",
     sourceUrl: "https://www.chinatax.gov.cn",
     city: "National",
-    updatedAt: "2026-01-02-05",
+    updatedAt: "2026-02-05",
   },
   {
     id: "rental-housing-deduction",
@@ -345,7 +345,7 @@ const policies: Policy[] = [
     source: "State Taxation Administration",
     sourceUrl: "https://www.chinatax.gov.cn",
     city: "National",
-    updatedAt: "2026-01-01-18",
+    updatedAt: "2026-01-18",
   },
   {
     id: "green-card-permanent-residence",
@@ -366,7 +366,7 @@ const policies: Policy[] = [
     source: "National Immigration Administration",
     sourceUrl: "https://www.nia.gov.cn",
     city: "National",
-    updatedAt: "2026-01-03-15",
+    updatedAt: "2026-03-15",
   },
   {
     id: "digital-renminbi-subsidy",
@@ -387,7 +387,7 @@ const policies: Policy[] = [
     source: "People's Bank of China",
     sourceUrl: "https://www.pbc.gov.cn",
     city: "Shenzhen, Suzhou, Chengdu, Shanghai, Hainan, and other pilot cities",
-    updatedAt: "2026-01-02-25",
+    updatedAt: "2026-02-25",
   },
   {
     id: "foreign-expert-allowance",
@@ -408,7 +408,7 @@ const policies: Policy[] = [
     source: "Ministry of Science and Technology",
     sourceUrl: "https://www.most.gov.cn",
     city: "National",
-    updatedAt: "2026-01-01-05",
+    updatedAt: "2026-01-05",
   },
   {
     id: "work-injury-insurance",
@@ -429,7 +429,7 @@ const policies: Policy[] = [
     source: "Ministry of Human Resources and Social Security",
     sourceUrl: "https://www.mohrss.gov.cn",
     city: "National",
-    updatedAt: "2026-01-02-15",
+    updatedAt: "2026-02-15",
   },
   {
     id: "infant-care-deduction",
@@ -450,7 +450,7 @@ const policies: Policy[] = [
     source: "State Taxation Administration",
     sourceUrl: "https://www.chinatax.gov.cn",
     city: "National",
-    updatedAt: "2026-01-01-12",
+    updatedAt: "2026-01-12",
   },
   {
     id: "continuing-education-deduction",
@@ -471,7 +471,7 @@ const policies: Policy[] = [
     source: "State Taxation Administration",
     sourceUrl: "https://www.chinatax.gov.cn",
     city: "National",
-    updatedAt: "2026-01-02-08",
+    updatedAt: "2026-02-08",
   },
   {
     id: "shanghai-lingang-special-policy",
@@ -492,7 +492,7 @@ const policies: Policy[] = [
     source: "Lingang New Area Administration",
     sourceUrl: "https://www.lingang.gov.cn",
     city: "Shanghai - Lingang New Area",
-    updatedAt: "2026-01-03-20",
+    updatedAt: "2026-03-20",
   },
   {
     id: "hainan-free-trade-port-tax",
@@ -513,7 +513,7 @@ const policies: Policy[] = [
     source: "Hainan Free Trade Port Administration",
     sourceUrl: "https://www.hnftp.gov.cn",
     city: "Hainan Province",
-    updatedAt: "2026-01-02-28",
+    updatedAt: "2026-02-28",
   },
   {
     id: "foreign-driver-license-conversion",
@@ -534,7 +534,7 @@ const policies: Policy[] = [
     source: "Traffic Management Bureau, Ministry of Public Security",
     sourceUrl: "https://www.mps.gov.cn",
     city: "National",
-    updatedAt: "2026-01-01-22",
+    updatedAt: "2026-01-22",
   },
   {
     id: "cross-border-remittance-facilitation",
@@ -555,7 +555,7 @@ const policies: Policy[] = [
     source: "State Administration of Foreign Exchange",
     sourceUrl: "https://www.safe.gov.cn",
     city: "National",
-    updatedAt: "2026-01-03-08",
+    updatedAt: "2026-03-08",
   },
 ];
 
