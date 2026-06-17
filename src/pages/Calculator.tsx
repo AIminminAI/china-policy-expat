@@ -1,25 +1,23 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronRight, ChevronLeft, Lock, AlertTriangle } from 'lucide-react'
+import type { MatchedPolicy } from '../lib/types'
 
 const cities = ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Hangzhou', 'Chengdu', 'Nanjing', 'Wuhan', 'Suzhou', 'Xiamen']
 const visaTypes = ['Work (Z)', 'Student (X)', 'Talent (R)', 'Permanent (D)', 'Business (M)']
 
-/* 付费墙状态模拟 */
-const isSubscribed = false
-
-/* 模拟计算结果 */
-const mockResults = [
-  { name: 'Housing Provident Fund Match', amount: '¥1,200/mo', priority: 'High' as const },
-  { name: 'Individual Income Tax Deduction', amount: '¥800/mo', priority: 'High' as const },
-  { name: 'Social Medical Insurance', amount: '¥500/mo', priority: 'Medium' as const },
-  { name: 'Children Education Allowance', amount: '¥300/mo', priority: 'Low' as const },
-]
-
 const priorityStyle = {
-  High: 'bg-red-100 text-red-700',
-  Medium: 'bg-amber-100 text-amber-700',
-  Low: 'bg-green-100 text-green-700',
+  high: 'bg-red-100 text-red-700',
+  medium: 'bg-amber-100 text-amber-700',
+  low: 'bg-green-100 text-green-700',
+}
+
+function isSubscribed(): boolean {
+  try {
+    return localStorage.getItem('subscription_status') === 'active'
+  } catch {
+    return false
+  }
 }
 
 export default function Calculator() {
@@ -32,13 +30,53 @@ export default function Calculator() {
   const [childAges, setChildAges] = useState('')
   const [hasElderly, setHasElderly] = useState(false)
 
+  const [results, setResults] = useState<MatchedPolicy[] | null>(null)
+  const [totalSavings, setTotalSavings] = useState('')
+  const [summary, setSummary] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const subscribed = isSubscribed()
+
   const canNext = () => {
     if (step === 0) return city !== '' && visa !== ''
     if (step === 1) return true
     return true
   }
 
-  const handleSubmit = (e: React.FormEvent) => { e.preventDefault() }
+  const handleSubmit = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          city,
+          visaType: visa,
+          monthlyIncome: income,
+          hasChildren,
+          childrenAge: childAges
+            ? childAges.split(',').map((a) => parseInt(a.trim(), 10)).filter((n) => !isNaN(n))
+            : [],
+          hasElderly,
+          rentOrBuy: housing.toLowerCase(),
+        }),
+      })
+      if (!res.ok) {
+        throw new Error('Failed to calculate results')
+      }
+      const data = await res.json()
+      setResults(data.matchedPolicies)
+      setTotalSavings(data.totalEstimatedSavings)
+      setSummary(data.summary)
+      setStep(3)
+    } catch {
+      setError('Failed to get results. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="bg-navy-50 min-h-screen py-10">
@@ -57,7 +95,7 @@ export default function Calculator() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-8 rounded-lg bg-white p-6 shadow-sm">
+        <div className="mt-8 rounded-lg bg-white p-6 shadow-sm">
           {/* Step 1: 城市 + 签证类型 */}
           {step === 0 && (
             <div className="space-y-5">
@@ -128,33 +166,52 @@ export default function Calculator() {
             <div className="space-y-5">
               <h2 className="font-heading text-xl font-bold text-navy-700">Your Estimated Benefits</h2>
 
-              {!isSubscribed ? (
-                <div className="rounded-lg border-2 border-gold-500 bg-gold-50 p-6 text-center">
-                  <Lock className="mx-auto h-8 w-8 text-gold-600" />
-                  <h3 className="mt-3 font-heading text-lg font-bold text-navy-700">Unlock Full Results</h3>
-                  <p className="mt-1 text-sm text-navy-500">Pro subscribers see all eligible policies with estimated amounts.</p>
-                  <Link to="/pricing" className="mt-4 inline-block rounded-lg bg-gold-500 px-6 py-2 font-semibold text-navy-800 hover:bg-gold-400">
-                    Upgrade to Pro
-                  </Link>
-                </div>
-              ) : (
+              {error && (
+                <p className="text-sm text-red-600">{error}</p>
+              )}
+
+              {results && results.length > 0 ? (
                 <>
-                  {mockResults.map((r, i) => (
+                  {/* 免费用户：显示前2条结果预览 */}
+                  {results.slice(0, subscribed ? results.length : 2).map((r, i) => (
                     <div key={i} className="flex items-center justify-between rounded-lg bg-navy-50 p-4">
                       <div>
-                        <p className="font-semibold text-navy-700">{r.name}</p>
+                        <p className="font-semibold text-navy-700">{r.policy.titleEn}</p>
                         <span className={`mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-semibold ${priorityStyle[r.priority]}`}>
-                          {r.priority} Priority
+                          {r.priority.charAt(0).toUpperCase() + r.priority.slice(1)} Priority
                         </span>
                       </div>
-                      <p className="text-lg font-bold text-gold-600">{r.amount}</p>
+                      <p className="text-lg font-bold text-gold-600">{r.estimatedAmount}</p>
                     </div>
                   ))}
-                  <div className="rounded-lg border-2 border-gold-400 bg-gold-50 p-4 text-center">
-                    <p className="text-sm text-navy-500">Total Estimated Monthly Savings</p>
-                    <p className="text-2xl font-bold text-gold-700">¥2,800</p>
-                  </div>
+
+                  {/* 免费用户付费墙提示 */}
+                  {!subscribed && results.length > 2 && (
+                    <div className="rounded-lg border-2 border-gold-500 bg-gold-50 p-6 text-center">
+                      <Lock className="mx-auto h-8 w-8 text-gold-600" />
+                      <h3 className="mt-3 font-heading text-lg font-bold text-navy-700">Unlock Full Results</h3>
+                      <p className="mt-1 text-sm text-navy-500">
+                        You have {results.length - 2} more eligible policies. Pro subscribers see all results with estimated amounts.
+                      </p>
+                      <Link to="/pricing" className="mt-4 inline-block rounded-lg bg-gold-500 px-6 py-2 font-semibold text-navy-800 hover:bg-gold-400">
+                        Upgrade to Pro
+                      </Link>
+                    </div>
+                  )}
+
+                  {subscribed && totalSavings && (
+                    <div className="rounded-lg border-2 border-gold-400 bg-gold-50 p-4 text-center">
+                      <p className="text-sm text-navy-500">Total Estimated Monthly Savings</p>
+                      <p className="text-2xl font-bold text-gold-700">{totalSavings}</p>
+                    </div>
+                  )}
                 </>
+              ) : !error ? (
+                <p className="text-navy-500">No matching policies found for your profile. Try adjusting your inputs.</p>
+              ) : null}
+
+              {summary && (
+                <p className="text-sm text-navy-600">{summary}</p>
               )}
 
               <div className="flex items-start gap-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-700">
@@ -177,17 +234,17 @@ export default function Calculator() {
               </button>
             )}
             {step === 2 && (
-              <button type="button" onClick={() => setStep(3)} className="rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-navy-800 transition-colors hover:bg-gold-400">
-                See Results
+              <button type="button" onClick={handleSubmit} disabled={loading} className="rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-navy-800 transition-colors hover:bg-gold-400 disabled:opacity-50">
+                {loading ? 'Calculating...' : 'See Results'}
               </button>
             )}
             {step === 3 && (
-              <button type="button" onClick={() => setStep(0)} className="rounded-lg bg-navy-700 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-navy-600">
+              <button type="button" onClick={() => { setStep(0); setResults(null); setError(''); }} className="rounded-lg bg-navy-700 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-navy-600">
                 Start Over
               </button>
             )}
           </div>
-        </form>
+        </div>
       </div>
     </div>
   )

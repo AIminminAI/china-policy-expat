@@ -38,8 +38,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       body: JSON.stringify({
         plan_id: body.planId,
         customer_email: body.email,
-        success_url: `${process.env.NEXT_PUBLIC_URL || "https://chinapolicyguide.com"}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_URL || "https://chinapolicyguide.com"}/pricing`,
+        success_url: `${process.env.NEXT_PUBLIC_URL || "https://china-policy-expat.vercel.app"}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_URL || "https://china-policy-expat.vercel.app"}/pricing`,
         metadata: {
           email: body.email,
           planId: body.planId,

@@ -26,9 +26,9 @@ const proFeatures = [
 
 const faqs = [
   { q: 'Can I cancel my subscription anytime?', a: 'Yes, you can cancel your Pro subscription at any time. You will retain access until the end of your billing period.' },
-  { q: 'Is there a free trial for Pro?', a: 'We offer a 7-day free trial for new Pro subscribers. No credit card required to start.' },
+  { q: 'Is there a free trial for Pro?', a: 'No free trial currently, but you can browse 3 policies for free to evaluate the service before subscribing.' },
   { q: 'What payment methods do you accept?', a: 'We accept major credit cards and debit cards through our secure payment processor, Creem.' },
-  { q: 'How often is policy data updated?', a: 'Our team reviews and updates policy information weekly, ensuring you always have the latest data.' },
+  { q: 'How often is policy data updated?', a: 'Our team reviews and updates policy information regularly, ensuring you have accurate and current data.' },
   { q: 'Can I get a refund?', a: 'If you are not satisfied, contact us within 14 days of purchase for a full refund.' },
 ]
 

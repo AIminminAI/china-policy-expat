@@ -37,8 +37,7 @@ async function updateKV(key: string, value: Record<string, unknown>): Promise<vo
   const kvToken = process.env.KV_REST_API_TOKEN;
 
   if (!kvUrl || !kvToken) {
-    console.warn("KV not configured, skipping storage");
-    return;
+    throw new Error("KV storage is not configured. Cannot persist purchase record.");
   }
 
   try {
@@ -52,6 +51,7 @@ async function updateKV(key: string, value: Record<string, unknown>): Promise<vo
     });
   } catch (error) {
     console.error("KV write error:", error);
+    throw error;
   }
 }
 
