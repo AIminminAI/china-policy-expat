@@ -1,8 +1,23 @@
 // POST /api/webhook/creem - 处理 Creem webhook 事件
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import type { CreemWebhookEvent } from "../../src/lib/types";
 import crypto from "crypto";
+
+interface CreemWebhookEvent {
+  id: string;
+  type: "checkout.completed" | "subscription.created" | "subscription.cancelled" | "payment.succeeded" | "payment.failed";
+  data: {
+    object: {
+      id: string;
+      customer_email: string;
+      amount: number;
+      currency: string;
+      status: string;
+      metadata?: Record<string, string>;
+    };
+  };
+  created_at: number;
+}
 
 // 验证 Creem webhook 签名
 function verifySignature(payload: string, signature: string, secret: string): boolean {
