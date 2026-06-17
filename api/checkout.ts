@@ -29,7 +29,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     // 调用 Creem API 创建结账会话
-    const response = await fetch("https://api.creem.io/v1/checkout/sessions", {
+    // API 文档: https://docs.creem.io/api-reference/endpoint/create-checkout
+    const response = await fetch("https://api.creem.io/v1/checkouts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +38,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       body: JSON.stringify({
         product_id: body.planId,
-        customer_email: body.email,
+        customer: {
+          email: body.email,
+        },
         success_url: `${process.env.NEXT_PUBLIC_URL || "https://china-policy-expat.vercel.app"}/success?plan_id=${body.planId}&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.NEXT_PUBLIC_URL || "https://china-policy-expat.vercel.app"}/pricing`,
         metadata: {
@@ -49,7 +52,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error("Creem API error: status", response.status);
+      console.error("Creem API error: status", response.status, errorData.substring(0, 200));
       res.status(502).json({ error: "Failed to create checkout session" });
       return;
     }
@@ -57,7 +60,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const session = await response.json();
 
     res.status(200).json({
-      url: session.url,
+      url: session.checkout_url,
       sessionId: session.id,
     });
   } catch (error) {
