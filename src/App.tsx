@@ -10,6 +10,7 @@ import Pricing from './pages/Pricing'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import About from './pages/About'
+import Success from './pages/Success'
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/policies/:id" element={<PolicyDetail />} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/about" element={<About />} />

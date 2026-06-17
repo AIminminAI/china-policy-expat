@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Check, X, Star, ChevronDown, ChevronUp } from 'lucide-react'
+import { Check, X, Star, ChevronDown, ChevronUp, Loader2 } from 'lucide-react'
+
+const PRODUCT_MONTHLY = 'prod_6WrYDWxaCXTcLa5mOd1sWb'
+const PRODUCT_YEARLY = 'prod_11nUOrRWNZ57wJ1oeRr4et'
 
 const freeFeatures = [
   { text: 'Browse 3 policies per month', included: true },
@@ -34,6 +37,38 @@ const faqs = [
 
 export default function Pricing() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  const [email, setEmail] = useState('')
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null)
+  const [checkoutError, setCheckoutError] = useState('')
+
+  const handleCheckout = async (productId: string) => {
+    if (!email.trim()) {
+      setCheckoutError('Please enter your email address.')
+      return
+    }
+    setCheckoutError('')
+    setCheckoutLoading(productId)
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId: productId, email: email.trim() }),
+      })
+      if (!res.ok) {
+        throw new Error('Failed to create checkout session')
+      }
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error('No checkout URL returned')
+      }
+    } catch {
+      setCheckoutError('Failed to start checkout. Please try again.')
+    } finally {
+      setCheckoutLoading(null)
+    }
+  }
 
   return (
     <div className="bg-navy-50 min-h-screen py-16">
@@ -69,7 +104,7 @@ export default function Pricing() {
             <h2 className="font-heading text-2xl font-bold text-navy-700">Pro</h2>
             <p className="mt-1 text-navy-500">Full access to everything</p>
             <div className="mt-4">
-              <p className="text-4xl font-bold text-navy-700">$9.9<span className="text-base font-normal text-navy-400">/mo</span></p>
+              <p className="text-4xl font-bold text-navy-700">$9.90<span className="text-base font-normal text-navy-400">/mo</span></p>
               <p className="text-sm text-gold-600 font-semibold">or $49/year (save 59%)</p>
             </div>
             <ul className="mt-6 space-y-3">
@@ -80,9 +115,39 @@ export default function Pricing() {
                 </li>
               ))}
             </ul>
-            <Link to="/calculator" className="mt-8 block rounded-lg bg-gold-500 py-2.5 text-center font-semibold text-navy-800 transition-colors hover:bg-gold-400">
-              Upgrade to Pro
-            </Link>
+
+            {/* Email input */}
+            <div className="mt-8">
+              <label className="block text-sm font-semibold text-navy-600 mb-1">Email address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="w-full rounded-lg border border-navy-200 px-3 py-2.5 text-navy-700 focus:border-gold-500 focus:outline-none"
+              />
+              {checkoutError && <p className="mt-1 text-sm text-red-600">{checkoutError}</p>}
+            </div>
+
+            {/* Two plan buttons */}
+            <div className="mt-4 space-y-3">
+              <button
+                onClick={() => handleCheckout(PRODUCT_MONTHLY)}
+                disabled={checkoutLoading !== null}
+                className="w-full rounded-lg bg-gold-500 py-2.5 text-center font-semibold text-navy-800 transition-colors hover:bg-gold-400 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {checkoutLoading === PRODUCT_MONTHLY ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                Monthly - $9.90/mo
+              </button>
+              <button
+                onClick={() => handleCheckout(PRODUCT_YEARLY)}
+                disabled={checkoutLoading !== null}
+                className="w-full rounded-lg bg-navy-700 py-2.5 text-center font-semibold text-white transition-colors hover:bg-navy-600 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {checkoutLoading === PRODUCT_YEARLY ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                Yearly - $49/yr (save 59%)
+              </button>
+            </div>
           </div>
         </div>
 

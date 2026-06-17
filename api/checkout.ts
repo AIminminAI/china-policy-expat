@@ -36,9 +36,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         "x-api-key": apiKey,
       },
       body: JSON.stringify({
-        plan_id: body.planId,
+        product_id: body.planId,
         customer_email: body.email,
-        success_url: `${process.env.NEXT_PUBLIC_URL || "https://china-policy-expat.vercel.app"}/success?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${process.env.NEXT_PUBLIC_URL || "https://china-policy-expat.vercel.app"}/success?plan_id=${body.planId}&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.NEXT_PUBLIC_URL || "https://china-policy-expat.vercel.app"}/pricing`,
         metadata: {
           email: body.email,
