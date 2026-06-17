@@ -102,7 +102,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             updatedAt: new Date().toISOString(),
           });
         }
-        console.log(`Checkout completed: ${id} for ${customer_email}`);
+        console.log(`Checkout completed: ${id}`);
         break;
       }
 
@@ -115,7 +115,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           planId: metadata?.planId,
           createdAt: new Date().toISOString(),
         });
-        console.log(`Subscription created: ${id} for ${customer_email}`);
+        console.log(`Subscription created: ${id}`);
         break;
       }
 
@@ -134,7 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             updatedAt: new Date().toISOString(),
           });
         }
-        console.log(`Subscription cancelled: ${id} for ${customer_email}`);
+        console.log(`Subscription cancelled: ${id}`);
         break;
       }
 
@@ -147,7 +147,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           status: "succeeded",
           paidAt: new Date().toISOString(),
         });
-        console.log(`Payment succeeded: ${id} for ${customer_email}`);
+        console.log(`Payment succeeded: ${id}`);
         break;
       }
 
@@ -159,7 +159,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           status: "failed",
           failedAt: new Date().toISOString(),
         });
-        console.log(`Payment failed: ${id} for ${customer_email}`);
+        console.log(`Payment failed: ${id}`);
         break;
       }
 

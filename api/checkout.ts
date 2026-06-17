@@ -49,7 +49,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error("Creem API error:", errorData);
+      console.error("Creem API error: status", response.status);
       res.status(502).json({ error: "Failed to create checkout session" });
       return;
     }

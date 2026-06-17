@@ -86,6 +86,12 @@ export default function Pricing() {
           </div>
         </div>
 
+        {/* Refund guarantee */}
+        <p className="mt-6 text-center text-sm text-navy-500">
+          14-day money-back guarantee. Not satisfied? Contact us for a full refund — no questions asked.{' '}
+          <Link to="/terms" className="text-gold-600 hover:underline">See terms</Link>
+        </p>
+
         {/* FAQ */}
         <section className="mx-auto mt-16 max-w-2xl">
           <h2 className="font-heading text-2xl font-bold text-navy-700 text-center">Frequently Asked Questions</h2>
