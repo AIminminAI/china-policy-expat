@@ -123,7 +123,7 @@ export default function Privacy() {
             <h2 className="font-heading text-xl font-bold text-navy-700">11. Contact Us</h2>
             <p className="mt-2">If you have any questions about this Privacy Policy, wish to exercise your data rights, or need to report a privacy concern, please contact us at:</p>
             <p className="mt-1">
-              <a href="mailto:privacy@chinapolicyguide.com" className="text-gold-600 hover:underline">privacy@chinapolicyguide.com</a>
+              <a href="mailto:privacy@china-policy-expat.vercel.app" className="text-gold-600 hover:underline">privacy@china-policy-expat.vercel.app</a>
             </p>
             <p className="mt-2">We will respond to your request within 30 days. For users in the EU/EEA, we will respond without undue delay and within one month as required by the GDPR.</p>
           </section>

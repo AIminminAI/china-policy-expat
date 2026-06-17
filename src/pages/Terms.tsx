@@ -42,7 +42,7 @@ export default function Terms() {
             <p className="mt-1">The Pro plan provides unlimited access to all features for a recurring fee. Subscription details:</p>
             <ul className="mt-2 list-disc pl-6 space-y-1">
               <li><strong>Billing Cycle:</strong> Monthly ($9.90/month) or Annual ($49/year)</li>
-              <li><strong>Free Trial:</strong> New Pro subscribers are eligible for a 7-day free trial</li>
+              <li><strong>Free Evaluation:</strong> You can browse up to 3 policies for free and use the basic calculator before subscribing, so you can evaluate the service before paying</li>
               <li><strong>Automatic Renewal:</strong> Subscriptions automatically renew at the end of each billing period unless cancelled before the renewal date</li>
               <li><strong>Cancellation:</strong> You may cancel your subscription at any time. Upon cancellation, you will retain access to Pro features until the end of your current billing period</li>
             </ul>
@@ -52,8 +52,8 @@ export default function Terms() {
             <h2 className="font-heading text-xl font-bold text-navy-700">6. Refund Policy</h2>
             <p className="mt-2">We offer the following refund terms:</p>
             <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li><strong>14-Day Money-Back Guarantee:</strong> If you are not satisfied with the Pro plan, you may request a full refund within 14 days of your initial purchase by contacting us at <a href="mailto:support@chinapolicyguide.com" className="text-gold-600 hover:underline">support@chinapolicyguide.com</a></li>
-              <li><strong>Free Trial Period:</strong> No charges are applied during the 7-day free trial. You will only be charged if you continue the subscription after the trial ends</li>
+              <li><strong>14-Day Money-Back Guarantee:</strong> If you are not satisfied with the Pro plan, you may request a full refund within 14 days of your initial purchase by contacting us at <a href="mailto:support@china-policy-expat.vercel.app" className="text-gold-600 hover:underline">support@china-policy-expat.vercel.app</a></li>
+              <li><strong>Free Evaluation:</strong> You can browse up to 3 policies for free and use the basic calculator before subscribing. No charges are applied until you choose to subscribe</li>
               <li><strong>Renewal Refunds:</strong> Refund requests for auto-renewed subscriptions will be considered on a case-by-case basis if submitted within 7 days of the renewal charge</li>
             </ul>
             <p className="mt-2">Refunds will be processed through our payment processor (Creem) and may take 5–10 business days to appear on your statement.</p>
@@ -114,7 +114,7 @@ export default function Terms() {
             <h2 className="font-heading text-xl font-bold text-navy-700">14. Contact Us</h2>
             <p className="mt-2">If you have any questions about these Terms of Service, please contact us at:</p>
             <p className="mt-1">
-              <a href="mailto:support@chinapolicyguide.com" className="text-gold-600 hover:underline">support@chinapolicyguide.com</a>
+              <a href="mailto:support@china-policy-expat.vercel.app" className="text-gold-600 hover:underline">support@china-policy-expat.vercel.app</a>
             </p>
           </section>
         </div>
