@@ -1,24 +1,13 @@
-// GET /api/policies - 获取政策列表，支持 category 和 search 查询参数
+// GET /api/policy-detail?id=xxx&email=xxx - 获取政策详情（Pro 内容需订阅验证）
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-type PolicyCategory =
-  | "tax"
-  | "social-insurance"
-  | "housing"
-  | "healthcare"
-  | "education"
-  | "subsidy"
-  | "entrepreneurship"
-  | "transportation"
-  | "elderly-care"
-  | "childcare";
-
+// 政策数据（与 api/policies.ts 保持一致）
 interface Policy {
   id: string;
   titleEn: string;
   titleZh: string;
-  category: PolicyCategory;
+  category: string;
   summaryEn: string;
   detailEn: string;
   eligibilityEn: string[];
@@ -28,6 +17,19 @@ interface Policy {
   city: string;
   updatedAt: string;
 }
+
+const policyCategories: Record<string, string> = {
+  tax: "Tax & Finance",
+  "social-insurance": "Social Insurance",
+  housing: "Housing",
+  healthcare: "Healthcare",
+  education: "Education",
+  subsidy: "Subsidies & Benefits",
+  entrepreneurship: "Entrepreneurship",
+  transportation: "Transportation",
+  "elderly-care": "Elderly Care",
+  childcare: "Childcare",
+};
 
 const policies: Policy[] = [
   {
@@ -536,53 +538,115 @@ const policies: Policy[] = [
   },
 ];
 
-const policyCategories: Record<string, string> = {
-  tax: "Tax & Finance",
-  "social-insurance": "Social Insurance",
-  housing: "Housing",
-  healthcare: "Healthcare",
-  education: "Education",
-  subsidy: "Subsidies & Benefits",
-  entrepreneurship: "Entrepreneurship",
-  transportation: "Transportation",
-  "elderly-care": "Elderly Care",
-  childcare: "Childcare",
-};
+// 通过 Creem API 验证订阅状态
+async function checkSubscription(email: string): Promise<boolean> {
+  const apiKey = process.env.CREEM_API_KEY;
+  if (!apiKey) return false;
+
+  try {
+    const response = await fetch(
+      `https://api.creem.io/v1/customers?email=${encodeURIComponent(email)}`,
+      {
+        headers: { "x-api-key": apiKey },
+      }
+    );
+    if (!response.ok) return false;
+
+    const data = await response.json();
+    if (data.customer && data.customer.subscriptions) {
+      const activeSub = data.customer.subscriptions.find(
+        (sub: { status: string }) =>
+          sub.status === "active" || sub.status === "trialing"
+      );
+      if (activeSub) return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+// 从环境变量获取 KV 配置（支持 KV_REST_API_URL 和 REDIS_URL 两种格式）
+function getKVConfig(): { url: string; token: string } | null {
+  const kvUrl = process.env.KV_REST_API_URL;
+  const kvToken = process.env.KV_REST_API_TOKEN;
+  if (kvUrl && kvToken) {
+    return { url: kvUrl, token: kvToken };
+  }
+
+  const redisUrl = process.env.REDIS_URL;
+  if (redisUrl) {
+    try {
+      const match = redisUrl.match(/^redis[s]?:\/\/default:([^@]+)@([^:]+):(\d+)$/);
+      if (match) {
+        const [, password, host] = match;
+        return { url: `https://${host}`, token: password };
+      }
+    } catch {
+      // 解析失败
+    }
+  }
+
+  return null;
+}
+
+// 检查 KV 中的订阅状态
+async function checkKVSubscription(email: string): Promise<boolean> {
+  const config = getKVConfig();
+  if (!config) return false;
+
+  try {
+    const response = await fetch(
+      `${config.url}/get/subscriber:${email.toLowerCase().trim()}`,
+      {
+        headers: { Authorization: `Bearer ${config.token}` },
+      }
+    );
+    if (!response.ok) return false;
+    const data = await response.json();
+    if (data.result) {
+      const subscriber = JSON.parse(data.result);
+      return subscriber.status === "active";
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // 仅允许 GET 请求
   if (req.method !== "GET") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
 
-  const { category, search } = req.query;
+  const { id, email } = req.query;
 
-  let result = [...policies];
-
-  // 按类别筛选
-  if (category && typeof category === "string") {
-    result = result.filter((p) => p.category === category);
+  if (!id || typeof id !== "string") {
+    res.status(400).json({ error: "Policy id is required" });
+    return;
   }
 
-  // 按关键词搜索（搜索英文标题、中文标题、摘要）
-  if (search && typeof search === "string") {
-    const keyword = search.toLowerCase();
-    result = result.filter(
-      (p) =>
-        p.titleEn.toLowerCase().includes(keyword) ||
-        p.titleZh.includes(search) ||
-        p.summaryEn.toLowerCase().includes(keyword) ||
-        p.city.toLowerCase().includes(keyword)
-    );
+  const policy = policies.find((p) => p.id === id);
+  if (!policy) {
+    res.status(404).json({ error: "Policy not found" });
+    return;
   }
 
-  // 按更新时间倒序排列
-  result.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-
+  // 返回完整信息（全部免费）
+  const categoryLabel = policyCategories[policy.category] ?? policy.category;
   res.status(200).json({
-    total: result.length,
-    policies: result,
-    categories: policyCategories,
+    id: policy.id,
+    titleEn: policy.titleEn,
+    category: categoryLabel,
+    summaryEn: policy.summaryEn,
+    city: policy.city,
+    updatedAt: policy.updatedAt,
+    pro: true,
+    detailEn: policy.detailEn,
+    eligibilityEn: policy.eligibilityEn,
+    amount: policy.amount,
+    source: policy.source,
+    sourceUrl: policy.sourceUrl,
   });
 }

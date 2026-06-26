@@ -1,108 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://chinapolicyguide.com/</loc>
+    <loc>https://china-policy-expat.vercel.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://chinapolicyguide.com/policies</loc>
+    <loc>https://china-policy-expat.vercel.app/policies</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://chinapolicyguide.com/calculator</loc>
+    <loc>https://china-policy-expat.vercel.app/calculator</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://chinapolicyguide.com/pricing</loc>
+    <loc>https://china-policy-expat.vercel.app/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://chinapolicyguide.com/about</loc>
+    <loc>https://china-policy-expat.vercel.app/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://chinapolicyguide.com/privacy</loc>
+    <loc>https://china-policy-expat.vercel.app/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://chinapolicyguide.com/terms</loc>
+    <loc>https://china-policy-expat.vercel.app/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/individual-income-tax-deductions</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/social-insurance-foreign-employees</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/housing-provident-fund-expats</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/childcare-subsidy</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/home-appliance-trade-in-subsidy</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/new-energy-vehicle-subsidy</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/talent-housing-subsidy</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/medical-insurance-foreign-residents</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/education-subsidy-children-expats</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/startup-subsidy-foreign-entrepreneurs</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/foreign-talent-visa-r-visa</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/green-card-permanent-residence</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/shanghai-lingang-special-policy</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://chinapolicyguide.com/policies/hainan-free-trade-port-tax</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/individual-income-tax-deductions</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/social-insurance-foreign-employees</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/housing-provident-fund-expats</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/childcare-subsidy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/home-appliance-trade-in-subsidy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/new-energy-vehicle-subsidy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/talent-housing-subsidy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/medical-insurance-foreign-residents</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/education-subsidy-children-expats</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/startup-subsidy-foreign-entrepreneurs</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/foreign-talent-visa-r-visa</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/high-speed-rail-foreign-pass</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/elderly-care-deduction</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/rental-housing-deduction</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/green-card-permanent-residence</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/digital-renminbi-subsidy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/foreign-expert-allowance</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/work-injury-insurance</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/infant-care-deduction</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/continuing-education-deduction</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/shanghai-lingang-special-policy</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/hainan-free-trade-port-tax</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/foreign-driver-license-conversion</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://china-policy-expat.vercel.app/policies/cross-border-remittance-facilitation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

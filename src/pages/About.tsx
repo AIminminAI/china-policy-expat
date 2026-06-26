@@ -36,8 +36,7 @@ export default function About() {
               <li>Official Chinese government websites and publications</li>
               <li>Municipal Human Resources and Social Security bureaus</li>
               <li>Tax administration bulletins and circulars</li>
-              <li>Verified translations of policy documents</li>
-              <li>Consultations with licensed legal professionals</li>
+              <li>Public policy databases and regulatory announcements</li>
             </ul>
           </section>
 

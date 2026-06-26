@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Shield } from 'lucide-react'
+import { Menu, X, Shield, Coffee } from 'lucide-react'
 
 const navLinks = [
   { to: '/policies', label: 'Policies' },
   { to: '/calculator', label: 'Calculator' },
-  { to: '/pricing', label: 'Pricing' },
+  { to: '/support', label: 'Support' },
 ]
 
 export default function Header() {
@@ -35,10 +35,10 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            to="/pricing"
-            className="rounded bg-gold-500 px-4 py-1.5 text-sm font-semibold text-navy-800 transition-colors hover:bg-gold-400"
+            to="/support"
+            className="flex items-center gap-1 rounded bg-gold-500 px-4 py-1.5 text-sm font-semibold text-navy-800 transition-colors hover:bg-gold-400"
           >
-            Get Pro
+            <Coffee className="h-4 w-4" /> Buy Us a Coffee
           </Link>
         </nav>
 
@@ -68,11 +68,11 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            to="/pricing"
+            to="/support"
             onClick={() => setOpen(false)}
-            className="mt-2 inline-block rounded bg-gold-500 px-4 py-1.5 text-sm font-semibold text-navy-800"
+            className="mt-2 inline-flex items-center gap-1 rounded bg-gold-500 px-4 py-1.5 text-sm font-semibold text-navy-800"
           >
-            Get Pro
+            <Coffee className="h-4 w-4" /> Buy Us a Coffee
           </Link>
         </nav>
       )}

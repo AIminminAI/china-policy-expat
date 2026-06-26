@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ChevronRight, ChevronLeft, Lock, AlertTriangle } from 'lucide-react'
+import { ChevronRight, ChevronLeft, AlertTriangle } from 'lucide-react'
 import type { MatchedPolicy } from '../lib/types'
 
 const cities = ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Hangzhou', 'Chengdu', 'Nanjing', 'Wuhan', 'Suzhou', 'Xiamen']
@@ -10,14 +9,6 @@ const priorityStyle = {
   high: 'bg-red-100 text-red-700',
   medium: 'bg-amber-100 text-amber-700',
   low: 'bg-green-100 text-green-700',
-}
-
-function isSubscribed(): boolean {
-  try {
-    return localStorage.getItem('subscription_status') === 'active'
-  } catch {
-    return false
-  }
 }
 
 export default function Calculator() {
@@ -36,11 +27,8 @@ export default function Calculator() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const subscribed = isSubscribed()
-
   const canNext = () => {
     if (step === 0) return city !== '' && visa !== ''
-    if (step === 1) return true
     return true
   }
 
@@ -82,7 +70,7 @@ export default function Calculator() {
     <div className="bg-navy-50 min-h-screen py-10">
       <div className="container mx-auto px-4 max-w-2xl">
         <h1 className="font-heading text-3xl font-bold text-navy-700 text-center">Subsidy Calculator</h1>
-        <p className="mt-2 text-center text-navy-500">Find out which benefits you may be eligible for</p>
+        <p className="mt-2 text-center text-navy-500">Find out which benefits you may be eligible for — 100% free</p>
 
         {/* 进度条 */}
         {step < 3 && (
@@ -96,7 +84,7 @@ export default function Calculator() {
         )}
 
         <div className="mt-8 rounded-lg bg-white p-6 shadow-sm">
-          {/* Step 1: 城市 + 签证类型 */}
+          {/* Step 1 */}
           {step === 0 && (
             <div className="space-y-5">
               <h2 className="font-heading text-xl font-bold text-navy-700">Step 1: Location & Visa</h2>
@@ -117,7 +105,7 @@ export default function Calculator() {
             </div>
           )}
 
-          {/* Step 2: 收入 + 住房 */}
+          {/* Step 2 */}
           {step === 1 && (
             <div className="space-y-5">
               <h2 className="font-heading text-xl font-bold text-navy-700">Step 2: Income & Housing</h2>
@@ -139,7 +127,7 @@ export default function Calculator() {
             </div>
           )}
 
-          {/* Step 3: 家庭 */}
+          {/* Step 3 */}
           {step === 2 && (
             <div className="space-y-5">
               <h2 className="font-heading text-xl font-bold text-navy-700">Step 3: Family</h2>
@@ -161,7 +149,7 @@ export default function Calculator() {
             </div>
           )}
 
-          {/* 结果页 */}
+          {/* 结果页 - 全部免费 */}
           {step === 3 && (
             <div className="space-y-5">
               <h2 className="font-heading text-xl font-bold text-navy-700">Your Estimated Benefits</h2>
@@ -172,8 +160,7 @@ export default function Calculator() {
 
               {results && results.length > 0 ? (
                 <>
-                  {/* 免费用户：显示前2条结果预览 */}
-                  {results.slice(0, subscribed ? results.length : 2).map((r, i) => (
+                  {results.map((r, i) => (
                     <div key={i} className="flex items-center justify-between rounded-lg bg-navy-50 p-4">
                       <div>
                         <p className="font-semibold text-navy-700">{r.policy.titleEn}</p>
@@ -185,21 +172,7 @@ export default function Calculator() {
                     </div>
                   ))}
 
-                  {/* 免费用户付费墙提示 */}
-                  {!subscribed && results.length > 2 && (
-                    <div className="rounded-lg border-2 border-gold-500 bg-gold-50 p-6 text-center">
-                      <Lock className="mx-auto h-8 w-8 text-gold-600" />
-                      <h3 className="mt-3 font-heading text-lg font-bold text-navy-700">Unlock Full Results</h3>
-                      <p className="mt-1 text-sm text-navy-500">
-                        You have {results.length - 2} more eligible policies. Pro subscribers see all results with estimated amounts.
-                      </p>
-                      <Link to="/pricing" className="mt-4 inline-block rounded-lg bg-gold-500 px-6 py-2 font-semibold text-navy-800 hover:bg-gold-400">
-                        Upgrade to Pro
-                      </Link>
-                    </div>
-                  )}
-
-                  {subscribed && totalSavings && (
+                  {totalSavings && (
                     <div className="rounded-lg border-2 border-gold-400 bg-gold-50 p-4 text-center">
                       <p className="text-sm text-navy-500">Total Estimated Monthly Savings</p>
                       <p className="text-2xl font-bold text-gold-700">{totalSavings}</p>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Search, FileText, MapPin, ArrowRight, Mail, CheckCircle, AlertCircle } from 'lucide-react'
 import { policies, policyCategories } from '../data/policies'
 
@@ -25,14 +25,25 @@ const categoryColor: Record<string, string> = {
 }
 
 const stats = [
-  { icon: FileText, value: '20+', label: 'Policies' },
-  { icon: MapPin, value: '10+', label: 'Cities' },
+  { icon: FileText, value: '24', label: 'Policies' },
+  { icon: MapPin, value: '10', label: 'Cities' },
 ]
 
 export default function Home() {
   const [email, setEmail] = useState('')
   const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [subMessage, setSubMessage] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      navigate(`/policies?q=${encodeURIComponent(searchQuery.trim())}`)
+    } else {
+      navigate('/policies')
+    }
+  }
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,22 +84,24 @@ export default function Home() {
           </p>
 
           {/* 搜索框 */}
-          <div className="mx-auto mt-8 flex max-w-lg">
+          <form onSubmit={handleSearch} className="mx-auto mt-8 flex max-w-lg">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-navy-400" />
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search policies, benefits, cities..."
                 className="w-full rounded-l-lg border-2 border-r-0 border-navy-500 bg-white py-3 pl-10 pr-4 text-navy-700 placeholder-navy-300 focus:border-gold-500 focus:outline-none"
               />
             </div>
-            <Link
-              to="/policies"
+            <button
+              type="submit"
               className="rounded-r-lg bg-gold-500 px-6 py-3 font-semibold text-navy-800 transition-colors hover:bg-gold-400"
             >
               Search
-            </Link>
-          </div>
+            </button>
+          </form>
 
           {/* 统计卡片 */}
           <div className="mx-auto mt-12 grid max-w-2xl grid-cols-2 gap-4">

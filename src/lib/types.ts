@@ -18,11 +18,11 @@ export interface Policy {
   titleZh: string;
   category: PolicyCategory;
   summaryEn: string;
-  detailEn: string;
-  eligibilityEn: string[];
-  amount: string;
-  source: string;
-  sourceUrl: string;
+  detailEn?: string;
+  eligibilityEn?: string[];
+  amount?: string;
+  source?: string;
+  sourceUrl?: string;
   city: string;
   updatedAt: string;
 }

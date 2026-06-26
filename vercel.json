@@ -1,9 +1,11 @@
 {
   "rewrites": [
     { "source": "/api/policies", "destination": "/api/policies" },
+    { "source": "/api/policy-detail", "destination": "/api/policy-detail" },
     { "source": "/api/calculate", "destination": "/api/calculate" },
     { "source": "/api/checkout", "destination": "/api/checkout" },
     { "source": "/api/subscribe", "destination": "/api/subscribe" },
+    { "source": "/api/subscription", "destination": "/api/subscription" },
     { "source": "/api/webhook/creem", "destination": "/api/webhook/creem" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
@@ -11,7 +13,7 @@
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Origin", "value": "https://china-policy-expat.vercel.app" },
         { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS" },
         { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization,x-api-key" }
       ]

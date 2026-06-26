@@ -37,6 +37,7 @@ interface CalculateRequest {
   childrenAge: number[];
   hasElderly: boolean;
   rentOrBuy: "rent" | "buy";
+  email?: string;
 }
 
 interface MatchedPolicy {
@@ -61,7 +62,7 @@ const policies: Policy[] = [
     summaryEn:
       "Foreign nationals working in China can claim special additional deductions for housing, education, and dependents, significantly reducing their taxable income under the updated IIT law.",
     detailEn:
-      "Since the 2019 Individual Income Tax reform, foreign employees in China are eligible for the same special additional deductions as Chinese citizens. These deductions cover six categories: children's education, continuing education, housing loan interest or rent, elderly care,大病医疗 (major medical expenses), and infant care for children under 3 years old.\n\nForeigners can choose between the existing housing allowance exemption (up to a reasonable amount) and the new housing deduction. The housing allowance exemption is often more beneficial for high-earning expats, as it can cover actual rental costs without a cap in many cities. However, starting from 2022, the transition period ended, and foreigners must choose one method.\n\nEach deduction category has specific limits. For example, the children's education deduction is ¥1,000/month per child, the housing rent deduction ranges from ¥800 to ¥1,500/month depending on the city, and elderly care allows up to ¥2,000/month. These deductions are applied before calculating the final tax liability.\n\nTo claim these deductions, you need to file through your employer's withholding agent or submit directly via the Individual Income Tax APP (个人所得税APP). Proper documentation such as rental contracts, school enrollment certificates, and family relationship proofs may be required.",
+      "Since the 2019 Individual Income Tax reform, foreign employees in China are eligible for the same special additional deductions as Chinese citizens. These deductions cover six categories: children's education, continuing education, housing loan interest or rent, elderly care,大病医疗 (major medical expenses), and infant care for children under 3 years old.\n\nForeigners can choose between the existing housing allowance exemption (up to a reasonable amount) and the new housing deduction. The housing allowance exemption is often more beneficial for high-earning expats, as it can cover actual rental costs without a cap in many cities. However, starting from 2022, the transition period ended, and foreigners must choose one method.\n\nEach deduction category has specific limits. For example, the children's education deduction is ¥1,000/month per child, the housing rent deduction ranges from ¥800 to ¥1,500/month depending on the city, and elderly care allows up to ¥3,000/month. These deductions are applied before calculating the final tax liability.\n\nTo claim these deductions, you need to file through your employer's withholding agent or submit directly via the Individual Income Tax APP (个人所得税APP). Proper documentation such as rental contracts, school enrollment certificates, and family relationship proofs may be required.",
     eligibilityEn: [
       "Hold a valid work permit and residence permit in China",
       "Earn income subject to Chinese Individual Income Tax",
@@ -112,7 +113,7 @@ const policies: Policy[] = [
     ],
     amount: "5-12% of salary (matched by employer)",
     source: "Housing Provident Fund Management Centers",
-    sourceUrl: "https://www.gjj.beijing.gov.cn",
+    sourceUrl: "https://www.mohrss.gov.cn",
     city: "Shanghai, Shenzhen, and select cities",
     updatedAt: "2026-01-20",
   },
@@ -280,7 +281,7 @@ const policies: Policy[] = [
     ],
     amount: "Tax savings of ¥30,000 - ¥100,000+/year on allowances",
     source: "State Administration of Foreign Experts Affairs",
-    sourceUrl: "https://www.safea.gov.cn",
+    sourceUrl: "https://www.most.gov.cn",
     city: "National",
     updatedAt: "2026-02-10",
   },
@@ -311,7 +312,7 @@ const policies: Policy[] = [
     titleZh: "赡养老人专项附加扣除",
     category: "elderly-care",
     summaryEn:
-      "Foreign taxpayers supporting parents over 60 can claim a monthly deduction of ¥2,000-¥3,000 from their taxable income, whether the parents live in China or abroad.",
+      "Foreign taxpayers supporting parents over 60 can claim a monthly deduction of ¥1,500-¥3,000 from their taxable income, whether the parents live in China or abroad.",
     detailEn:
       "The elderly care special additional deduction (赡养老人专项附加扣除) allows taxpayers who support parents aged 60 or above to deduct ¥3,000/month if they are the only child, or ¥1,500/month each if there are siblings sharing the support responsibility.\n\nThis deduction is available to foreign nationals paying Chinese IIT, even if the supported parents live outside China. The key requirement is that the taxpayer provides financial support to the parent(s). Documentation such as proof of remittances or financial support may be requested during tax audits.\n\nFor foreign nationals, this deduction can be particularly valuable as it directly reduces taxable income. At the highest tax bracket (45%), the ¥3,000/month deduction saves approximately ¥16,200/year in taxes. Even at the 20% bracket, the annual savings are around ¥7,200.\n\nThe deduction can be claimed through the employer's withholding process or during the annual tax reconciliation (March 1 - June 30 each year). You need to declare the parents' information including their ID numbers and ages.",
     eligibilityEn: [
@@ -681,7 +682,7 @@ function matchPolicy(
 
     case "startup-subsidy-foreign-entrepreneurs": {
       if (!cityMatch) return null;
-      if (visaType === "R-visa" || visaType === "entrepreneur") {
+      if (visaType === "R-visa" || visaType === "Talent (R)" || visaType === "entrepreneur") {
         return {
           policy,
           estimatedAmount: "¥50,000 - ¥500,000 one-time grant",
@@ -699,7 +700,7 @@ function matchPolicy(
 
     case "foreign-talent-visa-r-visa": {
       if (!cityMatch) return null;
-      if (visaType === "R-visa") {
+      if (visaType === "R-visa" || visaType === "Talent (R)") {
         const taxSaving = Math.round(annualIncome * 0.15);
         return {
           policy,
@@ -834,7 +835,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     rentOrBuy: body.rentOrBuy ?? "rent",
   };
 
-  // 匹配所有政策
+  // 匹配所有政策（全部免费）
   const matchedPolicies: MatchedPolicy[] = [];
   for (const policy of policies) {
     const match = matchPolicy(policy, request);
@@ -852,9 +853,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const mediumCount = matchedPolicies.filter((m) => m.priority === "medium").length;
   const summary = `Based on your profile, we found ${matchedPolicies.length} relevant policies: ${highCount} high-priority and ${mediumCount} medium-priority. You could potentially save thousands of yuan annually through tax deductions, subsidies, and benefits.`;
 
+  // 计算总预计节省金额（基于匹配的政策数量和优先级）
+  const highValuePolicies = matchedPolicies.filter((m) => m.priority === "high").length;
+  const mediumValuePolicies = matchedPolicies.filter((m) => m.priority === "medium").length;
+  const estimatedMonthlyLow = highValuePolicies * 500 + mediumValuePolicies * 200;
+  const estimatedMonthlyHigh = highValuePolicies * 2000 + mediumValuePolicies * 800;
+  const totalEstimatedSavings = estimatedMonthlyLow > 0
+    ? `¥${estimatedMonthlyLow.toLocaleString()} - ¥${estimatedMonthlyHigh.toLocaleString()}/month`
+    : "Varies by policy combination";
+
   const response: CalculateResponse = {
     matchedPolicies,
-    totalEstimatedSavings: "Varies by policy combination",
+    totalEstimatedSavings,
     summary,
   };
 

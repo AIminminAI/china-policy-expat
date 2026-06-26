@@ -2,42 +2,65 @@
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-// KV 存储操作
-async function setKV(key: string, value: Record<string, unknown>): Promise<void> {
+// 从环境变量获取 KV 配置（支持 KV_REST_API_URL 和 REDIS_URL 两种格式）
+function getKVConfig(): { url: string; token: string } | null {
+  // 优先使用 KV_REST_API_URL + KV_REST_API_TOKEN
   const kvUrl = process.env.KV_REST_API_URL;
   const kvToken = process.env.KV_REST_API_TOKEN;
+  if (kvUrl && kvToken) {
+    return { url: kvUrl, token: kvToken };
+  }
 
-  if (!kvUrl || !kvToken) {
-    console.warn("KV not configured, skipping storage");
-    return;
+  // 从 REDIS_URL 解析（格式: redis:// 或 rediss://default:PASSWORD@HOST:PORT）
+  const redisUrl = process.env.REDIS_URL;
+  if (redisUrl) {
+    try {
+      const match = redisUrl.match(/^redis[s]?:\/\/default:([^@]+)@([^:]+):(\d+)$/);
+      if (match) {
+        const [, password, host] = match;
+        return { url: `https://${host}`, token: password };
+      }
+    } catch {
+      // 解析失败
+    }
+  }
+
+  return null;
+}
+
+async function setKV(key: string, value: Record<string, unknown>): Promise<boolean> {
+  const config = getKVConfig();
+  if (!config) {
+    console.error("KV not configured, cannot store subscriber");
+    return false;
   }
 
   try {
-    await fetch(`${kvUrl}/set/${key}`, {
+    await fetch(`${config.url}/set/${key}`, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${kvToken}`,
+        Authorization: `Bearer ${config.token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(value),
     });
+    return true;
   } catch (error) {
     console.error("KV write error:", error);
+    return false;
   }
 }
 
 async function getKV(key: string): Promise<Record<string, unknown> | null> {
-  const kvUrl = process.env.KV_REST_API_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN;
-
-  if (!kvUrl || !kvToken) {
+  const config = getKVConfig();
+  if (!config) {
     return null;
   }
 
   try {
-    const response = await fetch(`${kvUrl}/get/${key}`, {
+    const response = await fetch(`${config.url}/get/${key}`, {
       headers: {
-        Authorization: `Bearer ${kvToken}`,
+        Authorization: `Bearer ${config.token}`,
       },
     });
     if (!response.ok) return null;
@@ -70,7 +93,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     // 检查是否已订阅
-    const existing = await getKV(`subscriber:${normalizedEmail}`);
+    const existing = await getKV(`newsletter:${normalizedEmail}`);
     if (existing && existing.status === "active") {
       res.status(200).json({
         success: true,
@@ -79,13 +102,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return;
     }
 
-    // 存储订阅信息
-    await setKV(`subscriber:${normalizedEmail}`, {
+    // 存储订阅信息（使用 newsletter: 前缀，与付费订阅 subscriber: 区分）
+    const stored = await setKV(`newsletter:${normalizedEmail}`, {
       email: normalizedEmail,
       status: "active",
       source: "website",
       subscribedAt: new Date().toISOString(),
     });
+
+    if (!stored) {
+      res.status(503).json({
+        error: "Subscription service is temporarily unavailable. Please try again later.",
+      });
+      return;
+    }
 
     res.status(200).json({
       success: true,

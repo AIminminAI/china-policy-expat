@@ -4,7 +4,7 @@ import { Shield } from 'lucide-react'
 const footerLinks = [
   { to: '/policies', label: 'Policies' },
   { to: '/calculator', label: 'Calculator' },
-  { to: '/pricing', label: 'Pricing' },
+  { to: '/support', label: 'Support' },
   { to: '/about', label: 'About' },
   { to: '/privacy', label: 'Privacy' },
   { to: '/terms', label: 'Terms' },

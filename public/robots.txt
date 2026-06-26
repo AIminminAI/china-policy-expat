@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://chinapolicyguide.com/sitemap.xml
+Sitemap: https://china-policy-expat.vercel.app/sitemap.xml

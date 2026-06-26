@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ChevronRight, CheckCircle, ExternalLink, Lock, Calendar } from 'lucide-react'
+import { ChevronRight, CheckCircle, ExternalLink, Calendar, Loader2, Coffee } from 'lucide-react'
 import { policies, policyCategories } from '../data/policies'
 
 const categoryColor: Record<string, string> = {
@@ -15,18 +16,40 @@ const categoryColor: Record<string, string> = {
   'Childcare': 'bg-pink-100 text-pink-700',
 }
 
-function isSubscribed(): boolean {
-  try {
-    return localStorage.getItem('subscription_status') === 'active'
-  } catch {
-    return false
-  }
+interface PolicyDetail {
+  id: string
+  titleEn: string
+  category: string
+  summaryEn: string
+  city: string
+  updatedAt: string
+  pro: boolean
+  detailEn: string | null
+  eligibilityEn: string[] | null
+  amount: string | null
+  source: string | null
+  sourceUrl: string | null
 }
 
 export default function PolicyDetail() {
   const { id } = useParams<{ id: string }>()
   const policy = policies.find((p) => p.id === id)
-  const subscribed = isSubscribed()
+  const [detail, setDetail] = useState<PolicyDetail | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!id) return
+    setLoading(true)
+    fetch(`/api/policy-detail?id=${encodeURIComponent(id)}`)
+      .then(res => res.json())
+      .then(data => {
+        setDetail(data)
+        setLoading(false)
+      })
+      .catch(() => {
+        setLoading(false)
+      })
+  }, [id])
 
   if (!policy) {
     return (
@@ -43,7 +66,13 @@ export default function PolicyDetail() {
   }
 
   const categoryLabel = policyCategories[policy.category] ?? policy.category
-  const toc = ['Summary', 'Details', 'Eligibility', 'Benefits', 'Official Source']
+  const toc = [
+    { label: 'Summary', anchor: 'summary' },
+    { label: 'Details', anchor: 'details' },
+    { label: 'Eligibility', anchor: 'eligibility' },
+    { label: 'Benefits', anchor: 'benefits' },
+    { label: 'Official Source', anchor: 'source' },
+  ]
 
   return (
     <div className="bg-navy-50 min-h-screen py-10">
@@ -70,83 +99,96 @@ export default function PolicyDetail() {
               <Calendar className="h-4 w-4" /> Last updated: {policy.updatedAt}
             </p>
 
-            {/* 摘要 - 免费可见 */}
+            {/* 摘要 */}
             <section id="summary" className="mt-8 rounded-lg bg-white p-6 shadow-sm">
               <h2 className="font-heading text-xl font-bold text-navy-700">Summary</h2>
               <p className="mt-3 text-navy-600 leading-relaxed">{policy.summaryEn}</p>
             </section>
 
-            {/* 付费墙提示 */}
-            {!subscribed && (
-              <div className="mt-6 rounded-lg border-2 border-gold-500 bg-gold-50 p-6 text-center">
-                <Lock className="mx-auto h-8 w-8 text-gold-600" />
-                <h3 className="mt-3 font-heading text-lg font-bold text-navy-700">Unlock Full Guide</h3>
-                <p className="mt-1 text-sm text-navy-500">Subscribe to Pro to access the complete policy guide with application steps.</p>
-                <Link
-                  to="/pricing"
-                  className="mt-4 inline-block rounded-lg bg-gold-500 px-6 py-2 font-semibold text-navy-800 transition-colors hover:bg-gold-400"
-                >
-                  Upgrade to Pro
-                </Link>
+            {/* 加载中 */}
+            {loading && (
+              <div className="mt-6 flex items-center justify-center rounded-lg bg-white p-6 shadow-sm">
+                <Loader2 className="h-6 w-6 animate-spin text-gold-500" />
+                <span className="ml-2 text-navy-500">Loading details...</span>
               </div>
             )}
 
-            {subscribed && (
+            {/* 详情内容 - 完全免费 */}
+            {!loading && detail && (
               <>
-                {/* 详情 */}
-                <section id="details" className="mt-6 rounded-lg bg-white p-6 shadow-sm">
-                  <h2 className="font-heading text-xl font-bold text-navy-700">Details</h2>
-                  <p className="mt-3 text-navy-600 leading-relaxed whitespace-pre-line">{policy.detailEn}</p>
-                </section>
+                {detail.detailEn && (
+                  <section id="details" className="mt-6 rounded-lg bg-white p-6 shadow-sm">
+                    <h2 className="font-heading text-xl font-bold text-navy-700">Details</h2>
+                    <p className="mt-3 text-navy-600 leading-relaxed whitespace-pre-line">{detail.detailEn}</p>
+                  </section>
+                )}
 
-                {/* 资格条件 */}
-                <section id="eligibility" className="mt-6 rounded-lg bg-white p-6 shadow-sm">
-                  <h2 className="font-heading text-xl font-bold text-navy-700">Eligibility</h2>
-                  <ul className="mt-3 space-y-2">
-                    {policy.eligibilityEn.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2 text-navy-600">
-                        <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-green-500" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
+                {detail.eligibilityEn && (
+                  <section id="eligibility" className="mt-6 rounded-lg bg-white p-6 shadow-sm">
+                    <h2 className="font-heading text-xl font-bold text-navy-700">Eligibility</h2>
+                    <ul className="mt-3 space-y-2">
+                      {detail.eligibilityEn.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2 text-navy-600">
+                          <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-green-500" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
 
-                {/* 金额/福利 */}
-                <section id="benefits" className="mt-6 rounded-lg border-2 border-gold-400 bg-gold-50 p-6">
-                  <h2 className="font-heading text-xl font-bold text-navy-700">Amount / Benefit</h2>
-                  <p className="mt-3 text-lg font-semibold text-gold-700">{policy.amount}</p>
-                </section>
+                {detail.amount && (
+                  <section id="benefits" className="mt-6 rounded-lg border-2 border-gold-400 bg-gold-50 p-6">
+                    <h2 className="font-heading text-xl font-bold text-navy-700">Amount / Benefit</h2>
+                    <p className="mt-3 text-lg font-semibold text-gold-700">{detail.amount}</p>
+                  </section>
+                )}
 
-                {/* 官方来源 */}
-                <section id="source" className="mt-6 rounded-lg bg-white p-6 shadow-sm">
-                  <h2 className="font-heading text-xl font-bold text-navy-700">Official Source</h2>
-                  <p className="mt-2 text-sm text-navy-500">{policy.source}</p>
-                  <a
-                    href={policy.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-gold-600 hover:underline"
-                  >
-                    View Official Document <ExternalLink className="h-4 w-4" />
-                  </a>
-                </section>
+                {detail.sourceUrl && (
+                  <section id="source" className="mt-6 rounded-lg bg-white p-6 shadow-sm">
+                    <h2 className="font-heading text-xl font-bold text-navy-700">Official Source</h2>
+                    {detail.source && <p className="mt-2 text-sm text-navy-500">{detail.source}</p>}
+                    <a
+                      href={detail.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-flex items-center gap-1 text-gold-600 hover:underline"
+                    >
+                      View Official Document <ExternalLink className="h-4 w-4" />
+                    </a>
+                  </section>
+                )}
               </>
+            )}
+
+            {/* 打赏提示 */}
+            {!loading && (
+              <div className="mt-8 rounded-lg border-2 border-gold-300 bg-gold-50 p-6 text-center">
+                <Coffee className="mx-auto h-8 w-8 text-gold-600" />
+                <h3 className="mt-2 font-heading text-lg font-bold text-navy-700">Found this helpful?</h3>
+                <p className="mt-1 text-sm text-navy-500">All content is free. If this saved you money, consider buying us a coffee.</p>
+                <Link
+                  to="/support"
+                  className="mt-3 inline-block rounded-lg bg-gold-500 px-6 py-2 font-semibold text-navy-800 transition-colors hover:bg-gold-400"
+                >
+                  Support Us
+                </Link>
+              </div>
             )}
           </div>
 
-          {/* 侧边栏目录（仅桌面端） */}
+          {/* 侧边栏目录 */}
           <aside className="hidden lg:block w-56 shrink-0">
             <div className="sticky top-20 rounded-lg bg-white p-4 shadow-sm">
               <h4 className="font-heading text-sm font-bold text-navy-700">Table of Contents</h4>
               <ul className="mt-3 space-y-2">
                 {toc.map((item) => (
-                  <li key={item}>
+                  <li key={item.anchor}>
                     <a
-                      href={`#${item.toLowerCase()}`}
+                      href={`#${item.anchor}`}
                       className="text-sm text-navy-500 transition-colors hover:text-gold-600"
                     >
-                      {item}
+                      {item.label}
                     </a>
                   </li>
                 ))}

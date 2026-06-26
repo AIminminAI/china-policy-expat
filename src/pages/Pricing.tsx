@@ -6,7 +6,7 @@ const PRODUCT_MONTHLY = 'prod_6WrYDWxaCXTcLa5mOd1sWb'
 const PRODUCT_YEARLY = 'prod_11nUOrRWNZ57wJ1oeRr4et'
 
 const freeFeatures = [
-  { text: 'Browse 3 policies per month', included: true },
+  { text: 'Browse all policy summaries for free', included: true },
   { text: 'Basic calculator', included: true },
   { text: 'Newsletter', included: true },
   { text: 'Unlimited policy access', included: false },
@@ -17,7 +17,7 @@ const freeFeatures = [
 ]
 
 const proFeatures = [
-  { text: 'Browse 3 policies per month', included: true },
+  { text: 'Browse all policy summaries for free', included: true },
   { text: 'Basic calculator', included: true },
   { text: 'Newsletter', included: true },
   { text: 'Unlimited policy access', included: true },
@@ -29,7 +29,7 @@ const proFeatures = [
 
 const faqs = [
   { q: 'Can I cancel my subscription anytime?', a: 'Yes, you can cancel your Pro subscription at any time. You will retain access until the end of your billing period.' },
-  { q: 'Is there a free trial for Pro?', a: 'No free trial currently, but you can browse 3 policies for free to evaluate the service before subscribing.' },
+  { q: 'Is there a free trial for Pro?', a: 'No free trial currently, but you can browse all 24 policy summaries and use the basic calculator (2 results) for free to evaluate the service before subscribing.' },
   { q: 'What payment methods do you accept?', a: 'We accept major credit cards and debit cards through our secure payment processor, Creem.' },
   { q: 'How often is policy data updated?', a: 'Our team reviews and updates policy information regularly, ensuring you have accurate and current data.' },
   { q: 'Can I get a refund?', a: 'If you are not satisfied, contact us within 14 days of purchase for a full refund.' },
@@ -59,6 +59,8 @@ export default function Pricing() {
       }
       const data = await res.json()
       if (data.url) {
+        // 保存 email 到 localStorage，用于后续订阅验证
+        localStorage.setItem('subscriber_email', email.trim())
         window.location.href = data.url
       } else {
         throw new Error('No checkout URL returned')

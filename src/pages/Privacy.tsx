@@ -58,10 +58,10 @@ export default function Privacy() {
 
           <section>
             <h2 className="font-heading text-xl font-bold text-navy-700">6. Cookies and Tracking</h2>
-            <p className="mt-2">We use minimal cookies and tracking technologies:</p>
+            <p className="mt-2">We use minimal cookies:</p>
             <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li><strong>Essential Cookies:</strong> Required for the website to function properly (e.g., session management, theme preference).</li>
-              <li><strong>Analytics:</strong> We may use privacy-respecting analytics to understand how our service is used. No personally identifiable information is collected through analytics.</li>
+              <li><strong>Essential Cookies:</strong> Required for the website to function properly (e.g., remembering your subscription status and cookie consent preference).</li>
+              <li><strong>No Third-Party Tracking:</strong> We do not use Google Analytics, Facebook Pixel, or any third-party tracking cookies.</li>
             </ul>
             <p className="mt-2">You can control cookie preferences through your browser settings. Disabling essential cookies may affect the functionality of our service.</p>
           </section>
@@ -123,7 +123,7 @@ export default function Privacy() {
             <h2 className="font-heading text-xl font-bold text-navy-700">11. Contact Us</h2>
             <p className="mt-2">If you have any questions about this Privacy Policy, wish to exercise your data rights, or need to report a privacy concern, please contact us at:</p>
             <p className="mt-1">
-              <a href="mailto:privacy@china-policy-expat.vercel.app" className="text-gold-600 hover:underline">privacy@china-policy-expat.vercel.app</a>
+              <a href="mailto:1317957931@qq.com" className="text-gold-600 hover:underline">1317957931@qq.com</a>
             </p>
             <p className="mt-2">We will respond to your request within 30 days. For users in the EU/EEA, we will respond without undue delay and within one month as required by the GDPR.</p>
           </section>
