@@ -22,7 +22,6 @@ export default function Calculator() {
   const [hasElderly, setHasElderly] = useState(false)
 
   const [results, setResults] = useState<MatchedPolicy[] | null>(null)
-  const [totalSavings, setTotalSavings] = useState('')
   const [summary, setSummary] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -56,7 +55,6 @@ export default function Calculator() {
       }
       const data = await res.json()
       setResults(data.matchedPolicies)
-      setTotalSavings(data.totalEstimatedSavings)
       setSummary(data.summary)
       setStep(3)
     } catch {
@@ -171,13 +169,6 @@ export default function Calculator() {
                       <p className="text-lg font-bold text-gold-600">{r.estimatedAmount}</p>
                     </div>
                   ))}
-
-                  {totalSavings && (
-                    <div className="rounded-lg border-2 border-gold-400 bg-gold-50 p-4 text-center">
-                      <p className="text-sm text-navy-500">Total Estimated Monthly Savings</p>
-                      <p className="text-2xl font-bold text-gold-700">{totalSavings}</p>
-                    </div>
-                  )}
                 </>
               ) : !error ? (
                 <p className="text-navy-500">No matching policies found for your profile. Try adjusting your inputs.</p>

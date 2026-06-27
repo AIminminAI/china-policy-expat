@@ -46,7 +46,6 @@ export interface MatchedPolicy {
 
 export interface CalculateResponse {
   matchedPolicies: MatchedPolicy[];
-  totalEstimatedSavings: string;
   summary: string;
 }
 

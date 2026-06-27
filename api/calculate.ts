@@ -49,7 +49,6 @@ interface MatchedPolicy {
 
 interface CalculateResponse {
   matchedPolicies: MatchedPolicy[];
-  totalEstimatedSavings: string;
   summary: string;
 }
 
@@ -851,20 +850,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // 生成总结
   const highCount = matchedPolicies.filter((m) => m.priority === "high").length;
   const mediumCount = matchedPolicies.filter((m) => m.priority === "medium").length;
-  const summary = `Based on your profile, we found ${matchedPolicies.length} relevant policies: ${highCount} high-priority and ${mediumCount} medium-priority. You could potentially save thousands of yuan annually through tax deductions, subsidies, and benefits.`;
-
-  // 计算总预计节省金额（基于匹配的政策数量和优先级）
-  const highValuePolicies = matchedPolicies.filter((m) => m.priority === "high").length;
-  const mediumValuePolicies = matchedPolicies.filter((m) => m.priority === "medium").length;
-  const estimatedMonthlyLow = highValuePolicies * 500 + mediumValuePolicies * 200;
-  const estimatedMonthlyHigh = highValuePolicies * 2000 + mediumValuePolicies * 800;
-  const totalEstimatedSavings = estimatedMonthlyLow > 0
-    ? `¥${estimatedMonthlyLow.toLocaleString()} - ¥${estimatedMonthlyHigh.toLocaleString()}/month`
-    : "Varies by policy combination";
+  const summary = `Based on your profile, we found ${matchedPolicies.length} relevant policies: ${highCount} high-priority and ${mediumCount} medium-priority. Review the individual estimates below — actual amounts depend on your specific circumstances.`;
 
   const response: CalculateResponse = {
     matchedPolicies,
-    totalEstimatedSavings,
     summary,
   };
 
