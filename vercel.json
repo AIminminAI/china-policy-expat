@@ -3,7 +3,6 @@
     { "source": "/api/policies", "destination": "/api/policies" },
     { "source": "/api/policy-detail", "destination": "/api/policy-detail" },
     { "source": "/api/calculate", "destination": "/api/calculate" },
-    { "source": "/api/subscribe", "destination": "/api/subscribe" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Search, FileText, MapPin, ArrowRight, Mail, CheckCircle, AlertCircle } from 'lucide-react'
+import { Search, FileText, MapPin, ArrowRight, Calculator } from 'lucide-react'
 import { policies, policyCategories } from '../data/policies'
 
 /* 热门政策 - 使用真实数据的前6条 */
@@ -30,9 +30,6 @@ const stats = [
 ]
 
 export default function Home() {
-  const [email, setEmail] = useState('')
-  const [subStatus, setSubStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [subMessage, setSubMessage] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const navigate = useNavigate()
 
@@ -42,32 +39,6 @@ export default function Home() {
       navigate(`/policies?q=${encodeURIComponent(searchQuery.trim())}`)
     } else {
       navigate('/policies')
-    }
-  }
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setSubStatus('loading')
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      const data = await res.json()
-      if (res.ok) {
-        setSubStatus('success')
-        setSubMessage(data.message || 'Successfully subscribed!')
-        setEmail('')
-      } else {
-        setSubStatus('error')
-        setSubMessage(data.error || 'Failed to subscribe.')
-      }
-    } catch {
-      setSubStatus('error')
-      setSubMessage('Network error. Please try again.')
     }
   }
 
@@ -145,43 +116,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA 订阅区 */}
+      {/* CTA 计算器引导 */}
       <section className="bg-navy-700 py-16 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="font-heading text-3xl font-bold">Get Personalized Policy Alerts</h2>
+          <Calculator className="mx-auto h-10 w-10 text-gold-400" />
+          <h2 className="mt-4 font-heading text-3xl font-bold">Find Your Benefits in 30 Seconds</h2>
           <p className="mx-auto mt-3 max-w-lg text-navy-200">
-            Stay updated on the latest policy changes that affect you as an expat in China.
+            Answer a few questions and get a personalized list of subsidies and tax savings you may qualify for.
           </p>
-          <form className="mx-auto mt-8 flex max-w-md" onSubmit={handleSubscribe}>
-            <div className="relative flex-1">
-              <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-navy-400" />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                required
-                className="w-full rounded-l-lg border-2 border-r-0 border-navy-500 bg-white py-3 pl-10 pr-4 text-navy-700 placeholder-navy-300 focus:border-gold-500 focus:outline-none"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={subStatus === 'loading'}
-              className="rounded-r-lg bg-gold-500 px-6 py-3 font-semibold text-navy-800 transition-colors hover:bg-gold-400 disabled:opacity-50"
-            >
-              {subStatus === 'loading' ? 'Subscribing...' : 'Subscribe'}
-            </button>
-          </form>
-          {subStatus === 'success' && (
-            <p className="mt-3 flex items-center justify-center gap-1 text-sm text-green-400">
-              <CheckCircle className="h-4 w-4" /> {subMessage}
-            </p>
-          )}
-          {subStatus === 'error' && (
-            <p className="mt-3 flex items-center justify-center gap-1 text-sm text-red-400">
-              <AlertCircle className="h-4 w-4" /> {subMessage}
-            </p>
-          )}
+          <Link
+            to="/calculator"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-gold-500 px-8 py-3 font-semibold text-navy-800 transition-colors hover:bg-gold-400"
+          >
+            Try the Calculator <ArrowRight className="h-5 w-5" />
+          </Link>
         </div>
       </section>
     </>

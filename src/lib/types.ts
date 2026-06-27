@@ -50,15 +50,6 @@ export interface CalculateResponse {
   summary: string;
 }
 
-export interface SubscribeRequest {
-  email: string;
-}
-
-export interface SubscribeResponse {
-  success: boolean;
-  message: string;
-}
-
 // Vercel serverless function 类型
 export interface VercelRequest {
   method: string;

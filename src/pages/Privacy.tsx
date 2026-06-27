@@ -16,15 +16,14 @@ export default function Privacy() {
 
           <section>
             <h2 className="font-heading text-xl font-bold text-navy-700">2. Information We Collect</h2>
-            <p className="mt-2"><strong>Email Address (Optional):</strong> If you subscribe to our newsletter, we collect your email address to send you policy updates. This is completely optional — all content on the site is accessible without providing an email.</p>
             <p className="mt-2"><strong>Usage Data:</strong> We do not use third-party analytics tools. We do not track your browsing behavior, IP address, or device information.</p>
             <p className="mt-2"><strong>Donation Data:</strong> If you choose to donate via WeChat Pay or Alipay, the payment is processed entirely by those platforms. We do not see, store, or process your payment details.</p>
+            <p className="mt-2"><strong>No Personal Data Collection:</strong> We do not collect, store, or process any personal data such as email addresses, names, or phone numbers.</p>
           </section>
 
           <section>
             <h2 className="font-heading text-xl font-bold text-navy-700">3. How We Use Your Information</h2>
             <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li>To send you policy updates if you subscribe to our newsletter</li>
               <li>To improve our content based on general usage patterns (no individual tracking)</li>
               <li>To respond to your inquiries if you contact us</li>
             </ul>
@@ -32,8 +31,7 @@ export default function Privacy() {
 
           <section>
             <h2 className="font-heading text-xl font-bold text-navy-700">4. Data Storage</h2>
-            <p className="mt-2"><strong>Vercel KV:</strong> Newsletter subscriber email addresses are stored in Vercel KV (a serverless key-value store) hosted on Vercel's infrastructure. Vercel data centers are located in the United States and other regions.</p>
-            <p className="mt-2"><strong>No Payment Data:</strong> We do not store any payment information. Donations are processed entirely by WeChat Pay or Alipay on their respective platforms.</p>
+            <p className="mt-2"><strong>No Personal Data Stored:</strong> We do not store any personal data on our servers. Donations are processed entirely by WeChat Pay or Alipay on their respective platforms.</p>
           </section>
 
           <section>
@@ -76,7 +74,7 @@ export default function Privacy() {
 
           <section>
             <h2 className="font-heading text-xl font-bold text-navy-700">8. Cross-Border Data Transfer</h2>
-            <p className="mt-2">As our services are hosted on Vercel, your personal data (email address if subscribed) may be transferred to and processed in countries outside of China, including the United States. We ensure that:</p>
+            <p className="mt-2">As our services are hosted on Vercel, any data transmitted during your visit may be processed on Vercel's infrastructure in the United States or other regions. We ensure that:</p>
             <ul className="mt-2 list-disc pl-6 space-y-1">
               <li>Data is stored on Vercel's secure infrastructure</li>
               <li>Data is only used for the purposes described in this policy</li>
@@ -86,7 +84,7 @@ export default function Privacy() {
 
           <section>
             <h2 className="font-heading text-xl font-bold text-navy-700">9. Data Retention</h2>
-            <p className="mt-2">Newsletter subscriber email addresses are retained until you unsubscribe or request deletion. You can unsubscribe at any time using the unsubscribe link in our emails, or by contacting us directly.</p>
+            <p className="mt-2">We do not collect or retain any personal data. Since we do not operate a newsletter or user account system, there is no personal data to retain or delete.</p>
           </section>
 
           <section>

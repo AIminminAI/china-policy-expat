@@ -15,7 +15,7 @@ export default function Terms() {
 
           <section>
             <h2 className="font-heading text-xl font-bold text-navy-700">2. Description of Service</h2>
-            <p className="mt-2">ChinaPolicyGuide provides free information about Chinese government policies, subsidies, and regulations relevant to foreign expats living in China. The Service includes policy browsing, a subsidy calculator, and a newsletter. All content is free. Optional donations are accepted but not required.</p>
+            <p className="mt-2">ChinaPolicyGuide provides free information about Chinese government policies, subsidies, and regulations relevant to foreign expats living in China. The Service includes policy browsing and a subsidy calculator. All content is free. Optional donations are accepted but not required.</p>
           </section>
 
           <section>
