@@ -1,4 +1,4 @@
-// GET /api/policy-detail?id=xxx&email=xxx - 获取政策详情（Pro 内容需订阅验证）
+// GET /api/policy-detail?id=xxx - 获取政策详情（全部内容免费开放）
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
@@ -538,89 +538,13 @@ const policies: Policy[] = [
   },
 ];
 
-// 通过 Creem API 验证订阅状态
-async function checkSubscription(email: string): Promise<boolean> {
-  const apiKey = process.env.CREEM_API_KEY;
-  if (!apiKey) return false;
-
-  try {
-    const response = await fetch(
-      `https://api.creem.io/v1/customers?email=${encodeURIComponent(email)}`,
-      {
-        headers: { "x-api-key": apiKey },
-      }
-    );
-    if (!response.ok) return false;
-
-    const data = await response.json();
-    if (data.customer && data.customer.subscriptions) {
-      const activeSub = data.customer.subscriptions.find(
-        (sub: { status: string }) =>
-          sub.status === "active" || sub.status === "trialing"
-      );
-      if (activeSub) return true;
-    }
-    return false;
-  } catch {
-    return false;
-  }
-}
-
-// 从环境变量获取 KV 配置（支持 KV_REST_API_URL 和 REDIS_URL 两种格式）
-function getKVConfig(): { url: string; token: string } | null {
-  const kvUrl = process.env.KV_REST_API_URL;
-  const kvToken = process.env.KV_REST_API_TOKEN;
-  if (kvUrl && kvToken) {
-    return { url: kvUrl, token: kvToken };
-  }
-
-  const redisUrl = process.env.REDIS_URL;
-  if (redisUrl) {
-    try {
-      const match = redisUrl.match(/^redis[s]?:\/\/default:([^@]+)@([^:]+):(\d+)$/);
-      if (match) {
-        const [, password, host] = match;
-        return { url: `https://${host}`, token: password };
-      }
-    } catch {
-      // 解析失败
-    }
-  }
-
-  return null;
-}
-
-// 检查 KV 中的订阅状态
-async function checkKVSubscription(email: string): Promise<boolean> {
-  const config = getKVConfig();
-  if (!config) return false;
-
-  try {
-    const response = await fetch(
-      `${config.url}/get/subscriber:${email.toLowerCase().trim()}`,
-      {
-        headers: { Authorization: `Bearer ${config.token}` },
-      }
-    );
-    if (!response.ok) return false;
-    const data = await response.json();
-    if (data.result) {
-      const subscriber = JSON.parse(data.result);
-      return subscriber.status === "active";
-    }
-    return false;
-  } catch {
-    return false;
-  }
-}
-
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "GET") {
     res.status(405).json({ error: "Method not allowed" });
     return;
   }
 
-  const { id, email } = req.query;
+  const { id } = req.query;
 
   if (!id || typeof id !== "string") {
     res.status(400).json({ error: "Policy id is required" });

@@ -5,133 +5,112 @@ export default function Privacy() {
     <div className="bg-navy-50 min-h-screen py-10">
       <div className="container mx-auto px-4 max-w-3xl">
         <h1 className="font-heading text-3xl font-bold text-navy-700">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-navy-400">Last updated: June 16, 2026</p>
+        <p className="mt-2 text-sm text-navy-400">Last updated: June 17, 2026</p>
 
         <div className="mt-8 space-y-8 text-navy-600 leading-relaxed">
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">1. Information We Collect</h2>
-            <p className="mt-2">We collect the following types of information when you use our service:</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">1. Introduction</h2>
+            <p className="mt-2">ChinaPolicyGuide ("we", "us", "our") respects your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website at china-policy-expat.vercel.app.</p>
+            <p className="mt-2">This policy complies with the General Data Protection Regulation (GDPR) for European users and the Personal Information Protection Law (PIPL) of the People's Republic of China for Chinese users.</p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-xl font-bold text-navy-700">2. Information We Collect</h2>
+            <p className="mt-2"><strong>Email Address (Optional):</strong> If you subscribe to our newsletter, we collect your email address to send you policy updates. This is completely optional — all content on the site is accessible without providing an email.</p>
+            <p className="mt-2"><strong>Usage Data:</strong> We do not use third-party analytics tools. We do not track your browsing behavior, IP address, or device information.</p>
+            <p className="mt-2"><strong>Donation Data:</strong> If you choose to donate via WeChat Pay or Alipay, the payment is processed entirely by those platforms. We do not see, store, or process your payment details.</p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-xl font-bold text-navy-700">3. How We Use Your Information</h2>
             <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li><strong>Account Information:</strong> Email address when you sign up for an account or newsletter.</li>
-              <li><strong>Usage Data:</strong> Pages visited, features used, and general interaction patterns to improve our service.</li>
-              <li><strong>Calculator Data:</strong> City, visa type, income range, and family information you provide to the subsidy calculator. This data is processed locally in your browser and not stored on our servers.</li>
-              <li><strong>Payment Information:</strong> When you subscribe to our Pro plan, your payment is processed by Creem. We do not store your credit card details — Creem handles all payment data securely.</li>
+              <li>To send you policy updates if you subscribe to our newsletter</li>
+              <li>To improve our content based on general usage patterns (no individual tracking)</li>
+              <li>To respond to your inquiries if you contact us</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">2. How We Use Your Information</h2>
-            <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li>To provide and maintain our service</li>
-              <li>To send you policy alerts and newsletters you have opted into</li>
-              <li>To process subscription payments and manage your account</li>
-              <li>To improve our content and user experience</li>
-              <li>To communicate important updates about our service</li>
-            </ul>
-            <p className="mt-2">We do not sell, rent, or share your personal information with third parties for their marketing purposes.</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">4. Data Storage</h2>
+            <p className="mt-2"><strong>Vercel KV:</strong> Newsletter subscriber email addresses are stored in Vercel KV (a serverless key-value store) hosted on Vercel's infrastructure. Vercel data centers are located in the United States and other regions.</p>
+            <p className="mt-2"><strong>No Payment Data:</strong> We do not store any payment information. Donations are processed entirely by WeChat Pay or Alipay on their respective platforms.</p>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">3. Where Your Data Is Stored</h2>
-            <p className="mt-2">Your data is stored with the following service providers:</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">5. Cookies</h2>
+            <p className="mt-2">We use only essential cookies:</p>
             <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li><strong>Vercel KV:</strong> Subscriber email addresses and subscription status are stored in Vercel KV (a serverless key-value store) hosted on Vercel's infrastructure. Vercel data centers are located in the United States and other regions.</li>
-              <li><strong>Creem:</strong> Payment and billing information is processed and stored by Creem in accordance with their privacy policy. Creem may store data on servers outside of China.</li>
-              <li><strong>Vercel (Hosting):</strong> Our application is hosted on Vercel's platform, which may collect standard web analytics data (IP addresses, browser type, etc.) through server logs.</li>
+              <li><strong>Essential Cookies:</strong> Required for the website to function properly (e.g., remembering your cookie consent preference).</li>
             </ul>
+            <p className="mt-2">We do <strong>not</strong> use advertising cookies, tracking pixels, or third-party analytics. No data is shared with advertisers.</p>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">4. Cross-Border Data Transfers</h2>
-            <p className="mt-2">As our services are hosted on Vercel and use Creem for payments, your personal data may be transferred to and processed in countries outside of China, including the United States. We ensure that:</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">6. Your Rights Under GDPR</h2>
+            <p className="mt-2">If you are a resident of the European Economic Area (EEA), you have the following rights:</p>
             <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li>Data transfers are conducted in compliance with applicable data protection laws</li>
-              <li>Our service providers maintain appropriate security measures</li>
-              <li>For users protected by China's Personal Information Protection Law (PIPL), we rely on your consent for cross-border transfers of your personal information</li>
+              <li><strong>Access:</strong> Request a copy of your personal data</li>
+              <li><strong>Rectification:</strong> Request correction of inaccurate data</li>
+              <li><strong>Erasure:</strong> Request deletion of your personal data</li>
+              <li><strong>Restriction:</strong> Request restriction of processing</li>
+              <li><strong>Portability:</strong> Receive your data in a structured format</li>
+              <li><strong>Objection:</strong> Object to processing based on legitimate interests</li>
+              <li><strong>Withdraw Consent:</strong> Withdraw consent at any time</li>
             </ul>
+            <p className="mt-2">To exercise these rights, contact us at <a href="mailto:1317957931@qq.com" className="text-gold-600 hover:underline">1317957931@qq.com</a>.</p>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">5. Data Retention</h2>
-            <p className="mt-2">We retain your account information for as long as your account is active. If you request account deletion, we will remove your personal data within 30 days. Usage data is anonymized after 90 days and retained for analytics purposes only. Payment records are retained as required by applicable financial regulations.</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">7. Your Rights Under PIPL</h2>
+            <p className="mt-2">If you are a resident of the People's Republic of China, under PIPL you have the right to:</p>
+            <ul className="mt-2 list-disc pl-6 space-y-1">
+              <li>Know and decide how your personal information is handled</li>
+              <li>Query and copy your personal information</li>
+              <li>Request correction of inaccurate information</li>
+              <li>Request deletion of your personal information</li>
+              <li>Request transfer of your personal information</li>
+              <li>Withdraw consent</li>
+            </ul>
+            <p className="mt-2">To exercise these rights, contact us at <a href="mailto:1317957931@qq.com" className="text-gold-600 hover:underline">1317957931@qq.com</a>.</p>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">6. Cookies and Tracking</h2>
-            <p className="mt-2">We use minimal cookies:</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">8. Cross-Border Data Transfer</h2>
+            <p className="mt-2">As our services are hosted on Vercel, your personal data (email address if subscribed) may be transferred to and processed in countries outside of China, including the United States. We ensure that:</p>
             <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li><strong>Essential Cookies:</strong> Required for the website to function properly (e.g., remembering your subscription status and cookie consent preference).</li>
-              <li><strong>No Third-Party Tracking:</strong> We do not use Google Analytics, Facebook Pixel, or any third-party tracking cookies.</li>
-            </ul>
-            <p className="mt-2">You can control cookie preferences through your browser settings. Disabling essential cookies may affect the functionality of our service.</p>
-          </section>
-
-          <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">7. Your Rights</h2>
-            <p className="mt-2">You have the right to:</p>
-            <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
-              <li><strong>Rectification:</strong> Request correction of inaccurate personal data</li>
-              <li><strong>Deletion:</strong> Request deletion of your personal data</li>
-              <li><strong>Data Portability:</strong> Receive your data in a structured, commonly used, machine-readable format</li>
-              <li><strong>Withdraw Consent:</strong> Withdraw consent for data processing at any time, without affecting the lawfulness of processing based on consent before withdrawal</li>
-              <li><strong>Object:</strong> Object to the processing of your personal data for direct marketing purposes</li>
-              <li><strong>Opt Out:</strong> Opt out of marketing communications at any time via the unsubscribe link in our emails</li>
-            </ul>
-
-            <h3 className="font-heading text-lg font-semibold text-navy-700 mt-4">GDPR Rights (EU/EEA Users)</h3>
-            <p className="mt-2">If you are a resident of the European Economic Area (EEA), you have additional rights under the General Data Protection Regulation (GDPR), including:</p>
-            <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li>The right to lodge a complaint with your local supervisory authority</li>
-              <li>The right to restrict processing of your personal data in certain circumstances</li>
-              <li>The right not to be subject to decisions based solely on automated processing</li>
-            </ul>
-
-            <h3 className="font-heading text-lg font-semibold text-navy-700 mt-4">PIPL Rights (China Users)</h3>
-            <p className="mt-2">If you are a user in China, you have additional rights under the Personal Information Protection Law (PIPL), including:</p>
-            <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li>The right to know the purpose, method, and scope of personal information processing</li>
-              <li>The right to refuse targeted advertising and automated decision-making</li>
-              <li>The right to request deletion of your personal information when the processing purpose has been achieved or is no longer necessary</li>
-              <li>The right to file a complaint with the Cyberspace Administration of China (CAC) or relevant authorities</li>
+              <li>Data is stored on Vercel's secure infrastructure</li>
+              <li>Data is only used for the purposes described in this policy</li>
+              <li>You can request deletion at any time</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">8. Data Security</h2>
-            <p className="mt-2">We implement appropriate technical and organizational measures to protect your personal data, including:</p>
-            <ul className="mt-2 list-disc pl-6 space-y-1">
-              <li>Encryption in transit (HTTPS/TLS) for all data communications</li>
-              <li>Secure storage using Vercel KV with access controls</li>
-              <li>Webhook signature verification for payment processing</li>
-              <li>Regular security reviews of our codebase</li>
-            </ul>
-            <p className="mt-2">While we strive to protect your data, no method of electronic transmission or storage is 100% secure. We cannot guarantee absolute security.</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">9. Data Retention</h2>
+            <p className="mt-2">Newsletter subscriber email addresses are retained until you unsubscribe or request deletion. You can unsubscribe at any time using the unsubscribe link in our emails, or by contacting us directly.</p>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">9. Children's Privacy</h2>
-            <p className="mt-2">Our service is not directed to children under the age of 16. We do not knowingly collect personal information from children under 16. If we become aware that we have collected personal data from a child under 16, we will take steps to delete such information promptly.</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">10. Children's Privacy</h2>
+            <p className="mt-2">Our service is not directed to children under 16. We do not knowingly collect personal information from children under 16. If you believe we have collected information from a child under 16, please contact us immediately.</p>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">10. Changes to This Policy</h2>
-            <p className="mt-2">We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated" date. Your continued use of our service after changes constitutes acceptance of the updated policy.</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">11. Changes to This Policy</h2>
+            <p className="mt-2">We may update this Privacy Policy from time to time. We will notify you of any material changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
           </section>
 
           <section>
-            <h2 className="font-heading text-xl font-bold text-navy-700">11. Contact Us</h2>
-            <p className="mt-2">If you have any questions about this Privacy Policy, wish to exercise your data rights, or need to report a privacy concern, please contact us at:</p>
+            <h2 className="font-heading text-xl font-bold text-navy-700">12. Contact Us</h2>
+            <p className="mt-2">If you have any questions about this Privacy Policy, please contact us at:</p>
             <p className="mt-1">
               <a href="mailto:1317957931@qq.com" className="text-gold-600 hover:underline">1317957931@qq.com</a>
             </p>
-            <p className="mt-2">We will respond to your request within 30 days. For users in the EU/EEA, we will respond without undue delay and within one month as required by the GDPR.</p>
           </section>
         </div>
 
         <div className="mt-10 flex items-center gap-2 text-sm text-navy-400">
           <Shield className="h-4 w-4" />
-          Your privacy matters to us.
+          Your privacy is important to us.
         </div>
       </div>
     </div>

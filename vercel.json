@@ -3,10 +3,7 @@
     { "source": "/api/policies", "destination": "/api/policies" },
     { "source": "/api/policy-detail", "destination": "/api/policy-detail" },
     { "source": "/api/calculate", "destination": "/api/calculate" },
-    { "source": "/api/checkout", "destination": "/api/checkout" },
     { "source": "/api/subscribe", "destination": "/api/subscribe" },
-    { "source": "/api/subscription", "destination": "/api/subscription" },
-    { "source": "/api/webhook/creem", "destination": "/api/webhook/creem" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
@@ -15,7 +12,7 @@
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "https://china-policy-expat.vercel.app" },
         { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization,x-api-key" }
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization" }
       ]
     },
     {
@@ -27,7 +24,7 @@
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.creem.io; frame-ancestors 'none'" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'" }
       ]
     }
   ]

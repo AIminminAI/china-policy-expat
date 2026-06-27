@@ -50,16 +50,6 @@ export interface CalculateResponse {
   summary: string;
 }
 
-export interface CheckoutRequest {
-  planId: string;
-  email: string;
-}
-
-export interface CheckoutResponse {
-  url: string;
-  sessionId: string;
-}
-
 export interface SubscribeRequest {
   email: string;
 }
@@ -67,23 +57,6 @@ export interface SubscribeRequest {
 export interface SubscribeResponse {
   success: boolean;
   message: string;
-}
-
-// Creem webhook 事件类型
-export interface CreemWebhookEvent {
-  id: string;
-  type: "checkout.completed" | "subscription.created" | "subscription.cancelled" | "payment.succeeded" | "payment.failed";
-  data: {
-    object: {
-      id: string;
-      customer_email: string;
-      amount: number;
-      currency: string;
-      status: string;
-      metadata?: Record<string, string>;
-    };
-  };
-  created_at: number;
 }
 
 // Vercel serverless function 类型
