@@ -1,4 +1,4 @@
-import { Coffee, Heart, Gift } from 'lucide-react'
+import { Coffee, Heart, Gift, Mail } from 'lucide-react'
 
 export default function Support() {
   return (
@@ -70,6 +70,12 @@ export default function Support() {
         <p className="mt-8 text-center text-sm text-navy-400">
           Tips are voluntary. No payment is required to access any content on this site.
         </p>
+
+        <div className="mt-6 text-center text-sm text-navy-500">
+          <a href="mailto:1317957931@qq.com" className="inline-flex items-center gap-1 text-gold-600 hover:underline">
+            <Mail className="h-4 w-4" /> 1317957931@qq.com
+          </a>
+        </div>
       </div>
     </div>
   )
