@@ -264,27 +264,6 @@ const policies: Policy[] = [
     updatedAt: "2026-02-10",
   },
   {
-    id: "high-speed-rail-foreign-pass",
-    titleEn: "High-Speed Rail Foreigner Pass Discount",
-    titleZh: "外籍人士高铁优惠",
-    category: "transportation",
-    summaryEn:
-      "Foreign residents can enjoy discounted high-speed rail tickets through seasonal promotions and the 12306 app's foreigner-friendly features, including passport-based booking and e-ticketing.",
-    detailEn:
-      "China Railway has made significant improvements to serve foreign passengers. Foreign nationals can now book high-speed rail tickets using their passport numbers through the 12306 app and website, which supports English interface. E-ticketing means no need to collect paper tickets — just scan your passport at the gate.\n\nSeasonal promotions offer discounts of 10-30% on select routes during off-peak periods. The 12306 platform regularly runs promotions such as the 春运 early bird discount, summer travel deals, and mid-week specials. Foreign residents with verified 12306 accounts can access these promotions.\n\nFor frequent travelers, the 中国铁路畅行会员 (China Railway Changxing Member) program offers points for every trip that can be redeemed for free tickets. Foreign nationals can register using their passport. Points accumulate at approximately 5 points per yuan spent, and 10,000 points can be redeemed for a ticket worth approximately ¥100.\n\nSome cities also offer integrated transportation cards that combine subway, bus, and rail discounts. For example, Shanghai's transportation card offers a 10% discount after monthly spending exceeds ¥70 on the metro.",
-    eligibilityEn: [
-      "Hold a valid passport with residence permit",
-      "Register a 12306 account with passport verification",
-      "Book tickets through official channels",
-      "Travel during promotional periods for discounts",
-    ],
-    amount: "10-30% off select routes during promotions",
-    source: "China Railway",
-    sourceUrl: "https://www.12306.cn",
-    city: "National",
-    updatedAt: "2026-01-30",
-  },
-  {
     id: "elderly-care-deduction",
     titleEn: "Elderly Care Tax Deduction",
     titleZh: "赡养老人专项附加扣除",

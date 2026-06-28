@@ -25,7 +25,7 @@ const categoryColor: Record<string, string> = {
 }
 
 const stats = [
-  { icon: FileText, value: '24', label: 'Policies' },
+  { icon: FileText, value: '23', label: 'Policies' },
   { icon: MapPin, value: '10', label: 'Cities' },
 ]
 

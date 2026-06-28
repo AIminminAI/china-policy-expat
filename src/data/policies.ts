@@ -115,16 +115,6 @@ export const policies: Policy[] = [
     updatedAt: "2026-02-10",
   },
   {
-    id: "high-speed-rail-foreign-pass",
-    titleEn: "High-Speed Rail Foreigner Pass Discount",
-    titleZh: "外籍人士高铁优惠",
-    category: "transportation",
-    summaryEn:
-      "Foreign residents can enjoy discounted high-speed rail tickets through seasonal promotions and the 12306 app's foreigner-friendly features, including passport-based booking and e-ticketing.",
-    city: "National",
-    updatedAt: "2026-01-30",
-  },
-  {
     id: "elderly-care-deduction",
     titleEn: "Elderly Care Tax Deduction",
     titleZh: "赡养老人专项附加扣除",
