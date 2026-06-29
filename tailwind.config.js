@@ -34,8 +34,8 @@ export default {
         },
       },
       fontFamily: {
-        heading: ['Merriweather', 'Georgia', 'serif'],
-        body: ['Source Sans 3', 'Helvetica', 'Arial', 'sans-serif'],
+        heading: ['Georgia', 'Times New Roman', 'PingFang SC', 'Songti SC', 'SimSun', 'serif'],
+        body: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
       },
     },
   },

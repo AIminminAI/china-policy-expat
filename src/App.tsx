@@ -1,15 +1,18 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
+import { Loader2 } from 'lucide-react'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CookieConsent from './components/CookieConsent'
-import Home from './pages/Home'
-import Policies from './pages/Policies'
-import PolicyDetail from './pages/PolicyDetail'
-import Calculator from './pages/Calculator'
-import Support from './pages/Support'
-import Privacy from './pages/Privacy'
-import Terms from './pages/Terms'
-import About from './pages/About'
+
+const Home = lazy(() => import('./pages/Home'))
+const Policies = lazy(() => import('./pages/Policies'))
+const PolicyDetail = lazy(() => import('./pages/PolicyDetail'))
+const Calculator = lazy(() => import('./pages/Calculator'))
+const Support = lazy(() => import('./pages/Support'))
+const Privacy = lazy(() => import('./pages/Privacy'))
+const Terms = lazy(() => import('./pages/Terms'))
+const About = lazy(() => import('./pages/About'))
 
 function NotFound() {
   return (
@@ -34,19 +37,21 @@ export default function App() {
     <div className="flex min-h-screen flex-col font-body text-navy-700">
       <Header />
       <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/policies" element={<Policies />} />
-          <Route path="/policies/:id" element={<PolicyDetail />} />
-          <Route path="/calculator" element={<Calculator />} />
-          <Route path="/support" element={<Support />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/pricing" element={<Support />} />
-          <Route path="/success" element={<Support />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-[400px]"><Loader2 className="h-8 w-8 animate-spin text-gold-500" /></div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/policies" element={<Policies />} />
+            <Route path="/policies/:id" element={<PolicyDetail />} />
+            <Route path="/calculator" element={<Calculator />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/pricing" element={<Support />} />
+            <Route path="/success" element={<Support />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
       <CookieConsent />

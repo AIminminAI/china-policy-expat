@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ChevronRight, ChevronLeft, AlertTriangle } from 'lucide-react'
+import { calculateMatchedPolicies } from '../lib/calculator'
 import type { MatchedPolicy } from '../lib/types'
 
 const cities = ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Hangzhou', 'Chengdu', 'Nanjing', 'Wuhan', 'Suzhou', 'Xiamen']
@@ -23,45 +24,27 @@ export default function Calculator() {
 
   const [results, setResults] = useState<MatchedPolicy[] | null>(null)
   const [summary, setSummary] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
 
   const canNext = () => {
     if (step === 0) return city !== '' && visa !== ''
     return true
   }
 
-  const handleSubmit = async () => {
-    setLoading(true)
-    setError('')
-    try {
-      const res = await fetch('/api/calculate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          city,
-          visaType: visa,
-          monthlyIncome: income,
-          hasChildren,
-          childrenAge: childAges
-            ? childAges.split(',').map((a) => parseInt(a.trim(), 10)).filter((n) => !isNaN(n))
-            : [],
-          hasElderly,
-          rentOrBuy: housing.toLowerCase(),
-        }),
-      })
-      if (!res.ok) {
-        throw new Error('Failed to calculate results')
-      }
-      const data = await res.json()
-      setResults(data.matchedPolicies)
-      setSummary(data.summary)
-      setStep(3)
-    } catch {
-      setError('Failed to get results. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+  const handleSubmit = () => {
+    const data = calculateMatchedPolicies({
+      city,
+      visaType: visa,
+      monthlyIncome: income,
+      hasChildren,
+      childrenAge: childAges
+        ? childAges.split(',').map((a) => parseInt(a.trim(), 10)).filter((n) => !isNaN(n))
+        : [],
+      hasElderly,
+      rentOrBuy: housing.toLowerCase() as 'rent' | 'buy',
+    })
+    setResults(data.matchedPolicies)
+    setSummary(data.summary)
+    setStep(3)
   }
 
   return (
@@ -147,14 +130,10 @@ export default function Calculator() {
             </div>
           )}
 
-          {/* 结果页 - 全部免费 */}
+          {/* 结果页 - 全部免费，本地计算 */}
           {step === 3 && (
             <div className="space-y-5">
               <h2 className="font-heading text-xl font-bold text-navy-700">Your Estimated Benefits</h2>
-
-              {error && (
-                <p className="text-sm text-red-600">{error}</p>
-              )}
 
               {results && results.length > 0 ? (
                 <>
@@ -170,9 +149,9 @@ export default function Calculator() {
                     </div>
                   ))}
                 </>
-              ) : !error ? (
+              ) : (
                 <p className="text-navy-500">No matching policies found for your profile. Try adjusting your inputs.</p>
-              ) : null}
+              )}
 
               {summary && (
                 <p className="text-sm text-navy-600">{summary}</p>
@@ -198,12 +177,12 @@ export default function Calculator() {
               </button>
             )}
             {step === 2 && (
-              <button type="button" onClick={handleSubmit} disabled={loading} className="rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-navy-800 transition-colors hover:bg-gold-400 disabled:opacity-50">
-                {loading ? 'Calculating...' : 'See Results'}
+              <button type="button" onClick={handleSubmit} className="rounded-lg bg-gold-500 px-5 py-2 text-sm font-semibold text-navy-800 transition-colors hover:bg-gold-400">
+                See Results
               </button>
             )}
             {step === 3 && (
-              <button type="button" onClick={() => { setStep(0); setResults(null); setError(''); }} className="rounded-lg bg-navy-700 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-navy-600">
+              <button type="button" onClick={() => { setStep(0); setResults(null); }} className="rounded-lg bg-navy-700 px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-navy-600">
                 Start Over
               </button>
             )}
